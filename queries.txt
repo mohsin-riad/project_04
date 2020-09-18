@@ -1,0 +1,24 @@
+CREATE TABLE users(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    email varchar(255),
+    password varchar(255),
+    role varchar(255)
+);
+
+CREATE TABLE sections(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    semester varchar(255)
+);
+
+CREATE TABLE courses(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    type varchar(255)
+);
+
+CREATE TABLE sessions(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255)
+);
