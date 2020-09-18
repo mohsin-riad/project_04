@@ -15,6 +15,7 @@ CREATE TABLE sections(
 CREATE TABLE courses(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name varchar(255),
+    code varchar(255),
     type varchar(255)
 );
 
