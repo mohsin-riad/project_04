@@ -8,7 +8,7 @@
   </head>
   <body>
     <section id="container" class="">
-      <?php include 'include/navbar.php' ?>
+      <?php include 'include/login_navbar.php' ?>
 
       <section id="main-content">
         <section class="wrapper">
