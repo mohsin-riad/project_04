@@ -21,8 +21,8 @@
                 </div>
                 <div class="panel-body">
                   <div class="padd">
-                    <div class="form quick-post">
-                      <form class="form-horizontal"> 
+                    <div class="form quick-post" method >
+                      <form class="form-horizontal" method="post"> 
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="email">Email</label>
                             <div class="col-lg-10">
