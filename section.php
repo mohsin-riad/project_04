@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin control panel</title>
+    <title>Admin (section creation)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include 'include/link.php' ?>
@@ -30,17 +30,26 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal">
+                      <form class="form-horizontal" method="post" action="section.php">
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                           <div class="col-lg-10">
                             <input type="text" name = "name" class="form-control">
+                          </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="semester">Semester</label>
-                        <div class="col-lg-10">
-                            <input type="text" name = "semester" class="form-control">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2">Semester</label>
+                          <div class="col-lg-10">
+                            <select name="semester" id="" class="form-control">
+                              <option value="">- Choose Semester -</option>
+                              <?php  
+                                $i = 1;
+                                while(8 >= $i){ ?>
+                                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                  <?php $i++; 
+                                }
+                              ?>
+                            </select>
                           </div>
                         </div>
                         <div class="form-group">
@@ -59,5 +68,21 @@
       </section>
     </section>
     <?php include 'include/script.php' ?>
-    </body>
-  </html>
+  </body>
+</html>
+
+<?php 
+    include 'include/connection.php';
+    if(isset($_POST['submit']))
+    {
+        //recvd data from input/control
+        $name = $_POST['name'];
+        $semester = $_POST['semester'];
+        //db query
+        $query = "INSERT INTO `sections`( `name`, `semester`) VALUES ('$name', '$semester')";
+        if(mysqli_query($conn, $query))
+        {
+            echo "successfully created!!";
+        }
+    }
+?>
