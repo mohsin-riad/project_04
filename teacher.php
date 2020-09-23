@@ -30,7 +30,7 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal">
+                      <form class="form-horizontal" method="post" action="teacher.php" >
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                           <div class="col-lg-10">
@@ -47,7 +47,7 @@
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="tags">Password</label>
                           <div class="col-lg-10">
-                            <input type="text" name = "password" class="form-control">
+                            <input type="password" name = "password" class="form-control">
                           </div>
                         </div>
                         <div class="form-group">
@@ -69,3 +69,21 @@
     <?php include 'include/script.php' ?>
     </body>
   </html>
+
+  <?php 
+    include 'include/connection.php';
+    if(isset($_POST['submit']))
+    {
+      //recvd data from input/control
+      $name = $_POST['name'];
+      $email = $_POST['email'];
+      $pass = md5($_POST['password']);
+      $role = "teacher";
+      //db query
+      $query = "INSERT INTO `users`(`name`, `email`, `password`, `role`) VALUES ('$name','$email','$pass','$role')";
+      if(mysqli_query($conn, $query))
+      {
+          echo "successfully created!!";
+      }
+    }
+?>
