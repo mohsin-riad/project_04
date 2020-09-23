@@ -1,7 +1,7 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin control panel</title>
+    <title>Admin (course creation)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include 'include/link.php' ?>
@@ -30,33 +30,33 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal">
+                      <form class="form-horizontal" method="post" action="course.php">
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                           <div class="col-lg-10">
                             <input type="text" name = "name" class="form-control">
+                          </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2" for="code">Code</label>
-                        <div class="col-lg-10">
-                            <input type="text" name = "code" class="form-control">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2" for="code">Code</label>
+                          <div class="col-lg-10">
+                              <input type="text" name = "code" class="form-control">
+                          </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-lg-2">Type</label>
-                        <div class="col-lg-10">
-                        <select class="form-control">
+                        <div class="form-group">
+                          <label class="control-label col-lg-2">Type</label>
+                          <div class="col-lg-10">
+                          <select class="form-control" name="type" id="">
                             <option value="">- Choose Course Type -</option>
                             <option value="theory">Theory</option>
                             <option value="lab">Lab</option>
-                        </select>
-                        </div>
-                    </div>
-                        <div class="form-group">
-                          <div class="col-lg-offset-2 col-lg-9">
-                            <button type="submit" name = "submit" class="btn btn-primary">Create</button>
+                          </select>
                           </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                              <button type="submit" name = "submit" class="btn btn-primary">Create</button>
+                            </div>
                         </div>
                       </form>
                     </div>
@@ -69,5 +69,22 @@
       </section>
     </section>
     <?php include 'include/script.php' ?>
-    </body>
-  </html>
+  </body>
+</html>
+
+<?php 
+    include 'include/connection.php';
+    if(isset($_POST['submit']))
+    {
+        //recvd data from input/control
+        $name = $_POST['name'];
+        $code = $_POST['code'];
+        $type = $_POST['type'];
+        //db query
+        $query = "INSERT INTO `courses`(`name`, `code`, `type`) VALUES ('$name','$code','$type')";
+        if(mysqli_query($conn, $query))
+        {
+            echo "successfully created!!";
+        }
+    }
+?>

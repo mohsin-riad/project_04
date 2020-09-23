@@ -30,7 +30,7 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal">
+                      <form class="form-horizontal" method="post" action="session.php" >
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                             <div class="col-lg-10">
@@ -55,3 +55,18 @@
     <?php include 'include/script.php' ?>
     </body>
   </html>
+
+  <?php 
+    include 'include/connection.php';
+    if(isset($_POST['submit']))
+    {
+        //recvd data from input/control
+        $name = $_POST['name'];
+        //db query
+        $query = "INSERT INTO `sessions`(`name`) VALUES ('$name')";
+        if(mysqli_query($conn, $query))
+        {
+            echo "successfully created!!";
+        }
+    }
+?>
