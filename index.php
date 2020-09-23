@@ -7,11 +7,11 @@
     <title>Login Page</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php include 'include/link.php'?>
+    <?php include 'include/link.php'?>
   </head>
   <body>
     <section id="container" class="">
-<?php include 'include/navbar.php'?>
+      <?php include 'include/login_navbar.php' ?>
       <section id="main-content">
         <section class="wrapper">
           
@@ -52,7 +52,6 @@
         </section>
       </section>
     </section>
-<?php include 'include/script.php'?>
     </body>
   </html>
   <?php
