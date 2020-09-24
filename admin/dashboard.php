@@ -1,5 +1,6 @@
 <?php 
     session_start();
+    //authorization
     if(!$_SESSION['username']){
       session_destroy();
       header('Location: ../index.php');

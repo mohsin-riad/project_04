@@ -63,12 +63,14 @@
         $sql=mysqli_query($conn, $query);
         $row=mysqli_fetch_array($sql);
         $role = $row['role'];
+        //admin login
         if($role == 'admin'){
-            $username = $row['name'];
-            $_SESSION['username'] = $username; 
+          $username = $row['name'];
+          $_SESSION['username'] = $username; 
             $_SESSION['role'] = $role;
             header('Location: admin/dashboard.php');
         }
+        //teacher login
         else if($role == "teacher"){
             $username = $row['name'];
             $_SESSION['username'] = $username; 
