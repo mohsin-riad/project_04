@@ -24,7 +24,7 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post"  >
-                      <form class="form-horizontal" method="post" > 
+                      <form class="form-horizontal" method="post" action="index.php"> 
                         <div class="form-group">
                             <label class="control-label col-lg-2" for="email">Email</label>
                             <div class="col-lg-10">
@@ -55,16 +55,30 @@
     </body>
   </html>
   <?php
-    include 'connection.php';
+    include 'include/connection.php';
     if(isset($_POST['submit'])){
         $email= $_POST['email'];
         $password=md5($_POST['password']);
-        $qry="SELECT * FROM member WHERE email = '$email' AND password='$password'"; 
-        $r=mysqli_query($con,$qry);
-        $row=mysqli_fetch_array($r);
-        if($row){
-            header('Location: dashboard.php');
+        $query="SELECT * FROM users WHERE email = '$email' AND password='$password'"; 
+        $sql=mysqli_query($conn, $query);
+        $row=mysqli_fetch_array($sql);
+        $role = $row['role'];
+        //admin login
+        if($role == 'admin'){
+          $username = $row['name'];
+          $_SESSION['username'] = $username; 
+            $_SESSION['role'] = $role;
+            header('Location: admin/dashboard.php');
         }
-        else echo "Wrong email or password";
+        //teacher login
+        else if($role == "teacher"){
+            $username = $row['name'];
+            $_SESSION['username'] = $username; 
+            $_SESSION['role'] = $role;
+          header('Location: teacher/dashboard.php');
+        }
+        else {
+          echo "Wrong email or password";
+        }
     }
 ?>
