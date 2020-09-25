@@ -1,3 +1,17 @@
+<?php 
+    session_start();
+    //authorization
+    if(!$_SESSION['username']){
+      session_destroy();
+      header('Location: ../index.php');
+    }
+    else if($_SESSION['username'] && $_SESSION['role'] != 'admin'){
+      session_destroy();
+      header('Location: ../unauthorised_user.php');
+    }
+?>
+
+
 <!DOCTYPE html>
   <html lang="en">
   <head>
