@@ -20,7 +20,7 @@
   </head>
   <body>
     <section id="container" class="">
-      <?php include '../include/navbar.php' ?>
+      <?php include '../include/teacher_navbar.php' ?>
       <?php include '../include/teacher_sidebar.php' ?>
       <section id="main-content">
         <section class="wrapper">
