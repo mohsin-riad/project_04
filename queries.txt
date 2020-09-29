@@ -24,23 +24,29 @@ CREATE TABLE sessions(
     name varchar(255)
 );
 
-CREATE TABLE section_teacher_alloc(
+CREATE TABLE teacher_assign(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     teacher_id int,
     section_id int,
+    course_id int,
+    session_id int,
     FOREIGN KEY (teacher_id) REFERENCES users(id),
-    FOREIGN KEY (section_id) REFERENCES sections(id)
+    FOREIGN KEY (section_id) REFERENCES sections(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    FOREIGN KEY (session_id) REFERENCES sessions(id)
 );
 
 CREATE TABLE num_dist(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     course_id int,
     teacher_id int,
+    session_id int,
     FOREIGN KEY (teacher_id) REFERENCES users(id),
-    FOREIGN KEY (course_id) REFERENCES courses(id)
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    FOREIGN KEY (session_id) REFERENCES sessions(id)
 );
 
-CREATE TABLE marks_allocation(
+CREATE TABLE marks_assign(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     teacher_id int,
     session_id int,

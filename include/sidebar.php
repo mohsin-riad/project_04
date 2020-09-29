@@ -21,9 +21,9 @@
                 </ul>
             </li>
             <li>
-                <a class="" href="widgets.html">
+                <a class="" href="teacher_assign.php">
                     <i class="icon_document_alt"></i>
-                    <span>Widgets</span>
+                    <span>Teacher Assign</span>
                 </a>
             </li>
         </ul>
