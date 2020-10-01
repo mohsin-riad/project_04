@@ -30,6 +30,7 @@ CREATE TABLE teacher_assign(
     section_id int,
     course_id int,
     session_id int,
+    status int,
     FOREIGN KEY (teacher_id) REFERENCES users(id),
     FOREIGN KEY (section_id) REFERENCES sections(id),
     FOREIGN KEY (course_id) REFERENCES courses(id),
