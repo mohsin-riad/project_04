@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 29, 2020 at 10:11 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Oct 01, 2020 at 11:59 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -69,7 +69,9 @@ CREATE TABLE `num_dist` (
   `id` int(11) NOT NULL,
   `course_id` int(11) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
-  `session_id` int(11) DEFAULT NULL
+  `session_id` int(11) DEFAULT NULL,
+  `catagory_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `marks` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -123,15 +125,17 @@ CREATE TABLE `teacher_assign` (
   `teacher_id` int(11) DEFAULT NULL,
   `section_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
-  `session_id` int(11) DEFAULT NULL
+  `session_id` int(11) DEFAULT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `teacher_assign`
 --
 
-INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`) VALUES
-(1, 3, 2, 2, 1);
+INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
+(1, 3, 2, 2, 1, 0),
+(2, 2, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -252,7 +256,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
