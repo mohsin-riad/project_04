@@ -42,6 +42,8 @@ CREATE TABLE num_dist(
     course_id int,
     teacher_id int,
     session_id int,
+    catagory_name varchar(255),
+    marks varchar(255),
     FOREIGN KEY (teacher_id) REFERENCES users(id),
     FOREIGN KEY (course_id) REFERENCES courses(id),
     FOREIGN KEY (session_id) REFERENCES sessions(id)
