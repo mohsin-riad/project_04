@@ -73,7 +73,9 @@
         //teacher login
         else if($role == "teacher"){
             $username = $row['name'];
+            $id = $row['id'];
             $_SESSION['username'] = $username; 
+            $_SESSION['id'] = $id; 
             $_SESSION['role'] = $role;
           header('Location: teacher/dashboard.php');
         }
