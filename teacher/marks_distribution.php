@@ -14,7 +14,7 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin (Marks Distribution)</title>
+    <title>Teacher (Marks Distribution)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '../include/link.php' ?>
@@ -50,20 +50,22 @@
                                   <option value="">-select course-</option>
                                   <?php
                                       include '../include/connection.php';
-                                      $teacher_id = $_REQUEST['id'];  
-                                      // $_SESSION['username']
-                                      $query1 = "SELECT `course_id` FROM `teacher_assign` WHERE teacher_id = $teacher_id";
+                                      $teacher_id = $_SESSION['id'] ; 
+                                      $query1 = "SELECT * FROM `teacher_assign` WHERE teacher_id = $teacher_id";
                                       $sql1 = mysqli_query($conn, $query1);
                                       while($row1 = mysqli_fetch_array($sql1)){ 
+                                        if($row1['status'] == 0){
+
                                           $course_id = $row1['course_id'];
-                                          $query2 = "SELECT `id`, `name` FROM `courses` WHERE id = $course_id";
+                                          $query2 = "SELECT * FROM `courses` WHERE id = $course_id";
                                           $sql2 = mysqli_query($conn, $query2);
                                           $row2 = mysqli_fetch_assoc($sql2);
                                           ?>
                                           <option value="<?php echo $row2['id']; ?>"><?php echo $row2['name']; ?></option>
-                                      <?php }
+                                          <?php 
+                                        }
+                                      }
                                   ?>
-                                  
                               </select>
                           </div>
                           <div class="form-group">
@@ -104,10 +106,10 @@
             });
             $('#add').click(function(e){
                 e.preventDefault();
-                var str =  '<div class="col-6 cls">\
+                var str =  '<div class="col-md-6 portlets">\
                                 <input type="text" name="catagory_name[]" id="" placeholder="enter catagory" class="form-control">\
                             </div>\
-                            <div class="col-6 cls">\
+                            <div class="col-md-6 portlets">\
                                 <input type="number" name="catagory_value[]" id="" placeholder="enter number" class="form-control">\
                             </div>';
                 $('#dynamic_row').append(str);
@@ -127,16 +129,18 @@
         $row3 = mysqli_fetch_assoc($sql3);
         $session_id = $row3['session_id'];
 
+        $query4 = "UPDATE `teacher_assign` SET `status`= 1 WHERE `teacher_id`= $teacher_id AND `course_id`= $course_id";
+        mysqli_query($conn, $query4);
         $n = count($_POST['catagory_name']);
+
         for($i=0; $i < $n ;$i++){
             $cname = $_POST['catagory_name'][$i];
             $cvalue = $_POST['catagory_value'][$i];
 
             $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $session_id, '$cname', $cvalue)";
-            echo $query;
-            //$sql = mysqli_query($conn, $query);
+            mysqli_query($conn, $query);
         }
-        die();
+
     }
 
 ?>
