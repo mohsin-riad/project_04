@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2020 at 11:59 PM
+-- Generation Time: Oct 02, 2020 at 01:48 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -74,6 +74,16 @@ CREATE TABLE `num_dist` (
   `marks` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `num_dist`
+--
+
+INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `session_id`, `catagory_name`, `marks`) VALUES
+(1, 2, 3, 1, 'Attendance', 10),
+(2, 2, 3, 1, 'Lab Report', 10),
+(3, 2, 3, 1, 'Parformance', 30),
+(4, 2, 3, 1, 'Project', 50);
+
 -- --------------------------------------------------------
 
 --
@@ -134,7 +144,7 @@ CREATE TABLE `teacher_assign` (
 --
 
 INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
-(1, 3, 2, 2, 1, 0),
+(1, 3, 2, 2, 1, 1),
 (2, 2, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
@@ -238,7 +248,7 @@ ALTER TABLE `marks_assign`
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sections`
