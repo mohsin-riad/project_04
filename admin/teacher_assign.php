@@ -145,7 +145,7 @@
         $section = $_POST['section'];
         $session = $_POST['session'];
         //db query
-        $query = "INSERT INTO `teacher_assign`(`teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES ('$teacher', '$section', '$course', '$session', 1)";
+        $query = "INSERT INTO `teacher_assign`(`teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES ('$teacher', '$section', '$course', '$session', 0)";
         if(mysqli_query($conn, $query))
         {
             echo "successfully assigned!!";
