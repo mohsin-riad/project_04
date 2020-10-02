@@ -9,6 +9,7 @@
       session_destroy();
       header('Location: ../unauthorised_user.php');
     }
+    include '../include/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +50,6 @@
                               <select class="form-control" name="course" id="course">
                                   <option value="">-select course-</option>
                                   <?php
-                                      include '../include/connection.php';
                                       $teacher_id = $_SESSION['id'] ; 
                                       $query1 = "SELECT * FROM `teacher_assign` WHERE teacher_id = $teacher_id";
                                       $sql1 = mysqli_query($conn, $query1);
