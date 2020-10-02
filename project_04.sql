@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2020 at 01:48 PM
+-- Generation Time: Oct 02, 2020 at 04:24 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -41,7 +41,11 @@ CREATE TABLE `courses` (
 
 INSERT INTO `courses` (`id`, `name`, `code`, `type`) VALUES
 (1, 'MM', 'CSE 201', 'theory'),
-(2, 'SEISDL', 'CSE 301', 'lab');
+(2, 'SEISDL', 'CSE 301', 'lab'),
+(3, 'CMEP', 'CSE 202', 'theory'),
+(4, 'DS', 'CSE 371', 'theory'),
+(5, 'ADA', 'CSE 309', 'theory'),
+(6, 'OOP', 'CSE 311', 'theory');
 
 -- --------------------------------------------------------
 
@@ -82,7 +86,10 @@ INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `session_id`, `catagory
 (1, 2, 3, 1, 'Attendance', 10),
 (2, 2, 3, 1, 'Lab Report', 10),
 (3, 2, 3, 1, 'Parformance', 30),
-(4, 2, 3, 1, 'Project', 50);
+(4, 2, 3, 1, 'Project', 50),
+(5, 1, 2, 1, 'attendance', 10),
+(6, 1, 2, 1, 'mid', 30),
+(7, 1, 2, 1, 'final', 60);
 
 -- --------------------------------------------------------
 
@@ -103,7 +110,11 @@ CREATE TABLE `sections` (
 INSERT INTO `sections` (`id`, `name`, `semester`) VALUES
 (1, 'C5A', '5'),
 (2, 'C5B', '5'),
-(3, 'C3A', '3');
+(3, 'C3A', '3'),
+(4, 'C1A', '1'),
+(5, 'C2A', ''),
+(6, 'C3A', '3'),
+(7, 'C4A', '4');
 
 -- --------------------------------------------------------
 
@@ -122,7 +133,8 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `name`) VALUES
 (1, 'spring 2020'),
-(2, 'fall 2020');
+(2, 'fall 2020'),
+(3, 'spring 2021');
 
 -- --------------------------------------------------------
 
@@ -145,7 +157,9 @@ CREATE TABLE `teacher_assign` (
 
 INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
 (1, 3, 2, 2, 1, 1),
-(2, 2, 1, 1, 1, 0);
+(2, 2, 1, 1, 1, 1),
+(3, 4, 3, 4, 1, 0),
+(4, 4, 7, 5, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -168,7 +182,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'admin', 'admin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'admin'),
 (2, 'Kingshuk Dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(3, 'Anik Sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher');
+(3, 'Anik Sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(4, 'Minhaz Hossen', 'm@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(5, 'Rukon uddin', 'r@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -236,7 +252,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `marks_assign`
@@ -248,31 +264,31 @@ ALTER TABLE `marks_assign`
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
