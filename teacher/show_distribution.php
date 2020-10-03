@@ -9,6 +9,7 @@
       session_destroy();
       header('Location: ../unauthorised_user.php');
     }
+    include '../include/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -27,43 +28,58 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i> Show Distribution</h3>
+              <h3 class="page-header"><i class="fa fa-laptop"></i>Distribution Display</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
                 <li><i class="fa fa-laptop"></i>Show Distribution</li>
               </ol>
             </div>
           </div>
-          <div class="col-md-6 portlets">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <div class="pull-left">Course select to preview</div>
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-body">
-                <div class="padd">
-                  <div class="form quick-post">
-                    <form class="form-horizontal" method="post" action="section.php">
-                      <div class="form-group">
-                        <label class="control-label col-lg-2">Semester</label>
-                        <div class="col-lg-10">
-                          <select name="course" id="course" class="form-control">
-                            <option value="">- Choose course -</option>
-                            <?php  
-                              
-                            ?>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-9">
-                          <button type="submit" name = "submit" class="btn btn-primary">Create</button>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <section class="panel">
+                <header class="panel-heading">
+                  My Distributions
+                </header>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>Course Title</th>
+                      <th>Session</th>
+                      <th>Category Name</th>
+                      <th>Marks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php 
+                  include '../include/connection.php';
+                    $teacher_id = $_SESSION['id'];
+                    $query = "SELECT * FROM `num_dist` WHERE teacher_id = $teacher_id";
+                    $sql = mysqli_query($conn, $query);
+                    $class = ['active', 'success', 'warning', 'danger'];
+                    $it = 0;
+                    $i = 1;
+                    while($row = mysqli_fetch_array($sql)){ 
+                      if($it == 4) { $it = 0; } 
+                      $course_id = $row['course_id'];
+                      $query1= "SELECT * FROM `courses` WHERE id = $course_id";
+                      $sql1 = mysqli_query($conn, $query1);
+                      $row1 = mysqli_fetch_assoc($sql1);
+                      ?> 
+                      <tr class="<?php echo $class[$it]; ?>">
+                        <td> <?php echo $i; ?> </td>
+                        <td> <?php echo $row1['name']; ?> </td>
+                      </tr>
+                      <?php
+                      $it++; $i++;
+                    }
+                  ?>
+                    
+                    
+                  </tbody>
+                </table>
+              </section>
             </div>
           </div>
         </section>
