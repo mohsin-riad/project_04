@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2020 at 04:24 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Oct 02, 2020 at 06:02 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -184,7 +184,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (2, 'Kingshuk Dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (3, 'Anik Sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (4, 'Minhaz Hossen', 'm@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(5, 'Rukon uddin', 'r@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher');
+(5, 'Rukon uddin', 'r@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(6, 'tonmoy', 'tonmoy@gmail,com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -288,7 +289,7 @@ ALTER TABLE `teacher_assign`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
