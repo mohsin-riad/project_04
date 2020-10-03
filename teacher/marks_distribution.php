@@ -69,7 +69,7 @@
                               </select>
                           </div>
                           <div class="form-group">
-                              <button name="add" id="add" class="btn btn-success">+</button>
+                              <button name="add" id="add" class="btn btn-success">Add</button>
                           </div>
                           <div id="dynamic_row" class="form-group row">
                               <!-- <div class="col-6">

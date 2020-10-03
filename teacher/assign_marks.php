@@ -34,44 +34,43 @@
               </ol>
             </div>
           </div>
-            <div class="col-md-6 portlets">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <div class="pull-left">Enter Section Information</div>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="panel-body">
-                  <div class="padd">
-                    <div class="form quick-post">
-                      <form class="form-horizontal" method="post" action="section.php">
-                        <div class="form-group">
-                          <label class="control-label col-lg-2" for="name">Name</label>
-                          <div class="col-lg-10">
-                            <input type="text" name = "name" class="form-control">
-                          </div>
+          <div class="col-md-6 portlets">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="pull-left">Enter Section Information</div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="panel-body">
+                <div class="padd">
+                  <div class="form quick-post">
+                    <form class="form-horizontal" method="post" action="section.php">
+                      <div class="form-group">
+                        <label class="control-label col-lg-2" for="name">Name</label>
+                        <div class="col-lg-10">
+                          <input type="text" name = "name" class="form-control">
                         </div>
-                        <div class="form-group">
-                          <label class="control-label col-lg-2">Semester</label>
-                          <div class="col-lg-10">
-                            <select name="semester" id="" class="form-control">
-                              <option value="">- Choose Semester -</option>
-                              <?php  
-                                $i = 1;
-                                while(8 >= $i){ ?>
-                                  <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                  <?php $i++; 
-                                }
-                              ?>
-                            </select>
-                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-lg-2">Semester</label>
+                        <div class="col-lg-10">
+                          <select name="semester" id="" class="form-control">
+                            <option value="">- Choose Semester -</option>
+                            <?php  
+                              $i = 1;
+                              while(8 >= $i){ ?>
+                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                <?php $i++; 
+                              }
+                            ?>
+                          </select>
                         </div>
-                        <div class="form-group">
-                          <div class="col-lg-offset-2 col-lg-9">
-                            <button type="submit" name = "submit" class="btn btn-primary">Create</button>
-                          </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-9">
+                          <button type="submit" name = "submit" class="btn btn-primary">Create</button>
                         </div>
-                      </form>
-                    </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
