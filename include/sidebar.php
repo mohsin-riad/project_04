@@ -18,6 +18,7 @@
                 <li><a class="" href="teacher.php">teacher</a></li>
                 <li><a class="" href="section.php">section</a></li>
                 <li><a class="" href="session.php">session</a></li>
+                <li><a class="" href="course-table.php">All courses</a></li>
                 </ul>
             </li>
             <li>
