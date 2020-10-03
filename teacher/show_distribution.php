@@ -53,30 +53,42 @@
                   </thead>
                   <tbody>
                   <?php 
-                  include '../include/connection.php';
                     $teacher_id = $_SESSION['id'];
                     $query = "SELECT * FROM `num_dist` WHERE teacher_id = $teacher_id";
                     $sql = mysqli_query($conn, $query);
                     $class = ['active', 'success', 'warning', 'danger'];
                     $it = 0;
                     $i = 1;
+                    $flag = True;
                     while($row = mysqli_fetch_array($sql)){ 
-                      if($it == 4) { $it = 0; } 
+                      if($it == 4 || $it == -1) { 
+                        $flag ^= 1; 
+                        $it = ($flag)? $it+=2 : $it-=2;
+                      } 
+                      
                       $course_id = $row['course_id'];
                       $query1= "SELECT * FROM `courses` WHERE id = $course_id";
                       $sql1 = mysqli_query($conn, $query1);
                       $row1 = mysqli_fetch_assoc($sql1);
+                      
+                      $session_id = $row['session_id'];
+                      $query2= "SELECT * FROM `sessions` WHERE id = $session_id";
+                      $sql2 = mysqli_query($conn, $query2);
+                      $row2 = mysqli_fetch_assoc($sql2);
                       ?> 
                       <tr class="<?php echo $class[$it]; ?>">
                         <td> <?php echo $i; ?> </td>
                         <td> <?php echo $row1['name']; ?> </td>
+                        <td> <?php echo $row2['name']; ?> </td>
+                        <td> <?php echo $row['catagory_name']; ?> </td>
+                        <td> <?php echo $row['marks']; ?> </td>
                       </tr>
                       <?php
-                      $it++; $i++;
+                      if($flag) { $it++; } 
+                      else { $it--; } 
+                      $i++;
                     }
                   ?>
-                    
-                    
                   </tbody>
                 </table>
               </section>
