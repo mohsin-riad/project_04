@@ -9,6 +9,7 @@
       session_destroy();
       header('Location: ../unauthorised_user.php');
     }
+    include '../include/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +33,70 @@
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
                 <li><i class="fa fa-laptop"></i>Running Course</li>
               </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+              <section class="panel">
+                <header class="panel-heading">
+                  My Distributions
+                </header>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>#ID</th>
+                      <th>Course Title</th>
+                      <th>Section</th>
+                      <th>Session</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php 
+                    $teacher_id = $_SESSION['id'];
+                    $query = "SELECT * FROM `teacher_assign` WHERE teacher_id = $teacher_id";
+                    $sql = mysqli_query($conn, $query);
+                    $class = ['active', 'success', 'warning', 'danger'];
+                    $it = 0;
+                    $i = 1;
+                    $flag = True;
+                    while($row = mysqli_fetch_array($sql)){ 
+                      if($it == 4 || $it == -1) { 
+                        $flag ^= 1; 
+                        $it = ($flag)? $it+=2 : $it-=2;
+                      } 
+                      
+                      $course_id = $row['course_id'];
+                      $query1= "SELECT * FROM `courses` WHERE id = $course_id";
+                      $sql1 = mysqli_query($conn, $query1);
+                      $row1 = mysqli_fetch_assoc($sql1);
+                      
+                      $session_id = $row['session_id'];
+                      $query2= "SELECT * FROM `sessions` WHERE id = $session_id";
+                      $sql2 = mysqli_query($conn, $query2);
+                      $row2 = mysqli_fetch_assoc($sql2);
+
+                      $section_id = $row['section_id'];
+                      $query3= "SELECT * FROM `sections` WHERE id = $section_id";
+                      $sql3 = mysqli_query($conn, $query3);
+                      $row3 = mysqli_fetch_assoc($sql3);
+                      ?> 
+                      <tr class="<?php echo $class[$it]; ?>">
+                        <td> <?php echo $i; ?> </td>
+                        <td> <?php echo $row1['name']; ?> </td>
+                        <td> <?php echo $row3['name']; ?> </td>
+                        <td> <?php echo $row2['name']; ?> </td>
+                        <td> <?php echo ($row['status']) ? "Distributed" : "Not Distributed"; ?> </td>
+                      </tr>
+                      <?php
+                      if($flag) { $it++; } 
+                      else { $it--; } 
+                      $i++;
+                    }
+                  ?>
+                  </tbody>
+                </table>
+              </section>
             </div>
           </div>
         </section>
