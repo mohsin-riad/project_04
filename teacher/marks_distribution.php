@@ -101,7 +101,7 @@
                     $('#add').show();
                 }
                 else{
-                    alert('empty');
+                    $('#add').hide();
                 }
             });
             $('#add').click(function(e){
