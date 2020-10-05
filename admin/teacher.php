@@ -43,7 +43,7 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal" method="post" action="teacher.php" >
+                      <form class="form-horizontal" method="post" action="" >
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                           <div class="col-lg-10">
@@ -66,7 +66,6 @@
                         <div class="form-group">
                           <div class="col-lg-offset-2 col-lg-9">
                             <button type="submit" name= "submit" class="btn btn-primary">Create</button>
-                            
                           </div>
                         </div>
                       </form>
@@ -79,6 +78,13 @@
         </section>
       </section>
     </section>
+    <script>
+      $(document).ready(function(){
+        $('form').submit(function(){
+          alert("Teacher has been created");
+        });
+      });
+    </script>
     <?php include '../include/script.php' ?>
     </body>
   </html>
