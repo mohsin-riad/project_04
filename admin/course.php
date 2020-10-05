@@ -44,7 +44,7 @@
                 <div class="panel-body">
                   <div class="padd">
                     <div class="form quick-post">
-                      <form class="form-horizontal" method="post" action="course.php">
+                      <form class="form-horizontal" method="post" action="">
                         <div class="form-group">
                           <label class="control-label col-lg-2" for="name">Name</label>
                           <div class="col-lg-10">
@@ -82,6 +82,13 @@
         </section>
       </section>
     </section>
+    <script>
+      $(document).ready(function(){
+        $('form').submit(function(){
+          alert("course has been created");
+        });
+      });
+    </script>
     <?php include '../include/script.php' ?>
   </body>
 </html>
