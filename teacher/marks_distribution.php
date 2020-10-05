@@ -80,7 +80,13 @@
                               </div> -->
                           </div>
                           <div class="form-group">
-                              <button name="submit" id="submit" class="btn btn-primary">submit</button>
+                            <div class="alert alert-secondary" id="show_total" role="alert">
+                              <label for=""> Total Marks :</label>
+                              <output id="result"></output>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <button name="submit" id="submit" class="btn btn-primary sub">submit</button>
                           </div>
                       </form>
                   </div>
@@ -93,28 +99,62 @@
       </section>
     </section>
     <script>
-        $(document).ready(function(){
-            $('#add').hide();
-            $('#course').change(function(){
-                var course = $('#course').val();
-                if(course != ""){
-                    $('#add').show();
-                }
-                else{
-                    $('#add').hide();
-                }
-            });
-            $('#add').click(function(e){
-                e.preventDefault();
-                var str =  '<div class="col-md-6 portlets">\
-                                <input type="text" name="catagory_name[]" id="" placeholder="enter catagory" class="form-control">\
-                            </div>\
-                            <div class="col-md-6 portlets">\
-                                <input type="number" name="catagory_value[]" id="" placeholder="enter number" class="form-control">\
-                            </div>';
-                $('#dynamic_row').append(str);
-            });
+      $(document).ready(function(){
+          $('#show_total').hide();
+          $('#add').hide();
+          $('#course').change(function(){
+              var course = $('#course').val();
+              if(course != ""){
+                  $('#add').show();
+                  $('#show_total').show();
+              }
+              else{
+                  $('#add').hide();
+                  $('#show_total').hide();
+              }
+          });
+          $('#add').click(function(e){
+              e.preventDefault();
+              var str =  '<div class="col-md-6 portlets">\
+                              <input type="text" name="catagory_name[]" id="" placeholder="enter catagory" class="form-control">\
+                          </div>\
+                          <div class="col-md-6 portlets">\
+                              <input type="number" name="catagory_value[]" id="" placeholder="enter number" class="form-control marks">\
+                          </div>';
+              $('#dynamic_row').append(str);
+          });
+      });
+    </script>
+    <script>
+      //Dynamic marks calculation :)
+      $(document).ready(function(){
+        $("#submit").attr("disabled", true);
+
+        $('.form-group').on('input', '.marks', function(){
+          var sum = 0;
+          $('.form-group .marks').each(function(){
+            var input_val = $(this).val();
+            if($.isNumeric(input_val)){
+              sum += parseFloat(input_val);
+            }
+          });
+          $('#result').text(sum+'/100');
+          if(sum > 100){ 
+            alert('MARKS LIMIT EXCEEDED!');
+            $('#submit').prop('disabled', true);
+            $('#add').prop('disabled', true);
+          }
+          else if(sum == 100){ 
+            //alert('Submit Now: total marks fixed'); 
+            $('#submit').prop('disabled', false);
+            $('#add').prop('disabled', true);
+          }
+          else { 
+            $('#submit').prop('disabled', true); 
+            $('#add').prop('disabled', false);
+          }
         });
+      });
     </script>
     <?php include '../include/script.php' ?>
   </body>
@@ -140,7 +180,5 @@
             $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $session_id, '$cname', $cvalue)";
             mysqli_query($conn, $query);
         }
-
     }
-
 ?>
