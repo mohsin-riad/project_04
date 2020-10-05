@@ -59,7 +59,7 @@
                                 $i = 1;
                                 while(8 >= $i){ ?>
                                   <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                  <?php $i++; 
+                                  <?php  $i++; 
                                 }
                               ?>
                             </select>
