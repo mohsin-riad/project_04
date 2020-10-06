@@ -52,6 +52,23 @@
                             </div>
                         </div>
                         <div class="form-group">
+                          <label class="control-label col-lg-2" for="inputSuccess">Status</label>
+                          <div class="col-lg-10">
+                            <div class="radio">
+                              <label>
+                                  <input type="radio" name="status" id="" value="0" checked>
+                                  Inactive
+                              </label>
+                            </div>
+                            <div class="radio">
+                              <label>
+                                  <input type="radio" name="status" id="" value="1">
+                                  Active
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-9">
                             <button type="submit" name = "submit" class="btn btn-primary">Create</button>
                             </div>
@@ -83,11 +100,14 @@
     {
         //recvd data from input/control
         $name = $_POST['name'];
+        $status = $_POST['status'];
+        
         //db query
-        $query = "INSERT INTO `sessions`(`name`) VALUES ('$name')";
-        if(mysqli_query($conn, $query))
-        {
-            echo "successfully created!!";
-        }
+        $query = "INSERT INTO `sessions`(`name`, `status`) VALUES ('$name', $status)";
+        mysqli_query($conn, $query);
+        // if(mysqli_query($conn, $query))
+        // {
+        //     echo "successfully created!!";
+        // }
     }
 ?>

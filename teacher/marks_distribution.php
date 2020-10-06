@@ -60,8 +60,18 @@
                                           $query2 = "SELECT * FROM `courses` WHERE id = $course_id";
                                           $sql2 = mysqli_query($conn, $query2);
                                           $row2 = mysqli_fetch_assoc($sql2);
+                                          
+                                          $section_id = $row1['section_id'];
+                                          $query3 = "SELECT * FROM `sections` WHERE id = $section_id";
+                                          $sql3 = mysqli_query($conn, $query3);
+                                          $row3 = mysqli_fetch_assoc($sql3);
+                                          
+                                          $session_id = $row1['session_id'];
+                                          $query4 = "SELECT * FROM `sessions` WHERE id = $session_id";
+                                          $sql4 = mysqli_query($conn, $query4);
+                                          $row4 = mysqli_fetch_assoc($sql4);
                                           ?>
-                                          <option value="<?php echo $row2['id']; ?>"><?php echo $row2['name']; ?></option>
+                                          <option value="<?php echo $row2['id']; ?>"><?php echo $row2['name'].' - '.$row3['name'].' - '.$row4['name']; ?></option>
                                           <?php 
                                         }
                                       }
