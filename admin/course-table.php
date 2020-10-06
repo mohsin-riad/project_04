@@ -16,7 +16,7 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin (course creation)</title>
+    <title>Admin (course table)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '../include/link.php' ?>
@@ -32,7 +32,7 @@
               <h3 class="page-header"><i class="fa fa-laptop"></i>All Courses</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Course</li>
+                <li><i class="fa fa-laptop"></i>Course Table</li>
               </ol>
             </div>
           </div>
