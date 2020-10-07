@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2020 at 06:54 PM
+-- Generation Time: Oct 07, 2020 at 11:01 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -95,7 +95,12 @@ INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `section_id`, `session_
 (3, 5, 3, 1, 7, 'attendance', 10),
 (4, 5, 3, 1, 7, 'assignment', 10),
 (5, 5, 3, 1, 7, 'mid', 20),
-(6, 5, 3, 1, 7, 'final', 50);
+(6, 5, 3, 1, 7, 'final', 50),
+(7, 11, 3, 4, 8, 'attendance', 10),
+(8, 11, 3, 4, 8, 'assignment', 10),
+(9, 11, 3, 4, 8, 'ct', 10),
+(10, 11, 3, 4, 8, 'mid', 20),
+(11, 11, 3, 4, 8, 'final', 50);
 
 -- --------------------------------------------------------
 
@@ -177,8 +182,11 @@ CREATE TABLE `teacher_assign` (
 
 INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
 (1, 3, 1, 5, 7, 1),
-(2, 3, 4, 11, 8, 0),
-(3, 3, 10, 21, 2, 0);
+(2, 3, 4, 11, 8, 1),
+(3, 3, 10, 21, 2, 0),
+(4, 12, 4, 7, 3, 0),
+(5, 12, 10, 18, 2, 0),
+(7, 12, 7, 13, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -280,7 +288,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -298,7 +306,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

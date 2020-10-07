@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery-ui-1.10.4.min.js"></script>
 <script src="js/jquery-1.8.3.min.js"></script>
