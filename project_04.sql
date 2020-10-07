@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2020 at 06:02 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Generation Time: Oct 07, 2020 at 06:54 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -32,6 +32,7 @@ CREATE TABLE `courses` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `credit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -39,29 +40,34 @@ CREATE TABLE `courses` (
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `name`, `code`, `type`) VALUES
-(1, 'MM', 'CSE 201', 'theory'),
-(2, 'SEISDL', 'CSE 301', 'lab'),
-(3, 'CMEP', 'CSE 202', 'theory'),
-(4, 'DS', 'CSE 371', 'theory'),
-(5, 'ADA', 'CSE 309', 'theory'),
-(6, 'OOP', 'CSE 311', 'theory');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `marks_assign`
---
-
-CREATE TABLE `marks_assign` (
-  `id` int(11) NOT NULL,
-  `teacher_id` int(11) DEFAULT NULL,
-  `session_id` int(11) DEFAULT NULL,
-  `student_id` int(11) DEFAULT NULL,
-  `course_id` int(11) DEFAULT NULL,
-  `dist_id` int(11) DEFAULT NULL,
-  `marks` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `courses` (`id`, `name`, `code`, `credit`, `type`) VALUES
+(1, 'ACC', 'ACC 101', '3', 'theory'),
+(2, 'ICS', 'CSE 110', '2', 'theory'),
+(3, 'ElectCt-1', 'EEE 101', '3', 'theory'),
+(4, 'ENG-1', 'ENG 101', '3', 'theory'),
+(5, 'EM-1', 'MAT 105', '3', 'theory'),
+(6, 'PHY-1', 'PHY 101', '3', 'theory'),
+(7, 'DM', 'CSE 103', '3', 'theory'),
+(8, 'SP', 'CSE 111', '2', 'theory'),
+(9, 'Elect-1', 'EEE 211', '3', 'theory'),
+(10, 'ENG-2', 'ENG 103', '2', 'theory'),
+(11, 'EM-2', 'MAT 107', '3', 'theory'),
+(12, 'PHY-2', 'PHY 103', '3', 'theory'),
+(13, 'OOP', 'CSE 211', '3', 'theory'),
+(14, 'DS', 'CSE 221', '3', 'theory'),
+(15, 'ECO', 'ECO 201', '3', 'theory'),
+(16, 'DE', 'EEE 311', '3', 'theory'),
+(17, 'EM-3', 'MAT 201', '3', 'theory'),
+(18, 'ADA', 'CSE 225', '3', 'theory'),
+(19, 'DMS', 'CSE 237', '3', 'theory'),
+(20, 'SS', 'EEE 201', '3', 'theory'),
+(21, 'EM-4', 'MAT 203', '3', 'theory'),
+(22, 'IBM', 'MGT 203', '3', 'theory'),
+(23, 'MM', 'EEE 371', '3', 'theory'),
+(24, 'SEISD', 'CSE 305', '4', 'theory'),
+(25, 'CE', 'EEE 309', '3', 'theory'),
+(26, 'OB', 'MGT 251', '3', 'theory'),
+(27, 'CMEP', 'CSE 301', '3', 'theory');
 
 -- --------------------------------------------------------
 
@@ -73,23 +79,23 @@ CREATE TABLE `num_dist` (
   `id` int(11) NOT NULL,
   `course_id` int(11) DEFAULT NULL,
   `teacher_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
   `session_id` int(11) DEFAULT NULL,
-  `catagory_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `marks` int(11) NOT NULL
+  `catagory_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `marks` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `num_dist`
 --
 
-INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `session_id`, `catagory_name`, `marks`) VALUES
-(1, 2, 3, 1, 'Attendance', 10),
-(2, 2, 3, 1, 'Lab Report', 10),
-(3, 2, 3, 1, 'Parformance', 30),
-(4, 2, 3, 1, 'Project', 50),
-(5, 1, 2, 1, 'attendance', 10),
-(6, 1, 2, 1, 'mid', 30),
-(7, 1, 2, 1, 'final', 60);
+INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `section_id`, `session_id`, `catagory_name`, `marks`) VALUES
+(1, 5, 3, 1, 7, 'ct-1', 5),
+(2, 5, 3, 1, 7, 'ct-2', 5),
+(3, 5, 3, 1, 7, 'attendance', 10),
+(4, 5, 3, 1, 7, 'assignment', 10),
+(5, 5, 3, 1, 7, 'mid', 20),
+(6, 5, 3, 1, 7, 'final', 50);
 
 -- --------------------------------------------------------
 
@@ -108,13 +114,21 @@ CREATE TABLE `sections` (
 --
 
 INSERT INTO `sections` (`id`, `name`, `semester`) VALUES
-(1, 'C5A', '5'),
-(2, 'C5B', '5'),
-(3, 'C3A', '3'),
-(4, 'C1A', '1'),
-(5, 'C2A', ''),
-(6, 'C3A', '3'),
-(7, 'C4A', '4');
+(1, 'C1A', '1'),
+(2, 'C1B', '1'),
+(3, 'C1C', '1'),
+(4, 'C2A', '2'),
+(5, 'C2B', '2'),
+(6, 'C2C', '2'),
+(7, 'C3A', '3'),
+(8, 'C3B', '3'),
+(9, 'C3C', '3'),
+(10, 'C4A', '4'),
+(11, 'C4B', '4'),
+(12, 'C4C', '4'),
+(13, 'C5A', '5'),
+(14, 'C5B', '5'),
+(15, 'C5C', '5');
 
 -- --------------------------------------------------------
 
@@ -124,17 +138,23 @@ INSERT INTO `sections` (`id`, `name`, `semester`) VALUES
 
 CREATE TABLE `sessions` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `sessions`
 --
 
-INSERT INTO `sessions` (`id`, `name`) VALUES
-(1, 'spring 2020'),
-(2, 'fall 2020'),
-(3, 'spring 2021');
+INSERT INTO `sessions` (`id`, `name`, `status`) VALUES
+(1, 'Spring 2019', 0),
+(2, 'fall 2019', 0),
+(3, 'Spring 2020', 0),
+(4, 'fall 2020', 0),
+(5, 'Spring 2021', 0),
+(6, 'fall 2021', 0),
+(7, 'spring 2018', 0),
+(8, 'fall 2018', 0);
 
 -- --------------------------------------------------------
 
@@ -148,7 +168,7 @@ CREATE TABLE `teacher_assign` (
   `section_id` int(11) DEFAULT NULL,
   `course_id` int(11) DEFAULT NULL,
   `session_id` int(11) DEFAULT NULL,
-  `status` int(1) NOT NULL
+  `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -156,10 +176,9 @@ CREATE TABLE `teacher_assign` (
 --
 
 INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
-(1, 3, 2, 2, 1, 1),
-(2, 2, 1, 1, 1, 1),
-(3, 4, 3, 4, 1, 0),
-(4, 4, 7, 5, 1, 0);
+(1, 3, 1, 5, 7, 1),
+(2, 3, 4, 11, 8, 0),
+(3, 3, 10, 21, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -181,11 +200,23 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'admin', 'admin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'admin'),
-(2, 'Kingshuk Dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(3, 'Anik Sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(4, 'Minhaz Hossen', 'm@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(5, 'Rukon uddin', 'r@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(6, 'tonmoy', 'tonmoy@gmail,com', '827ccb0eea8a706c4c34a16891f84e7b', 'admin');
+(2, 'Mohammad Arif ', 'arif@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(3, 'Akramul Kabir Khan', 'akram@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(4, 'Sumon Sen ', 'sumon@gmail.com', '96e79218965eb72c92a549dd5a330112', 'teacher'),
+(5, 'Toufiq sayed', 'toufiq@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(6, 'Iftekhar Khan', 'iftekhar@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(7, 'Nusrat Shirin', 'shirin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(8, 'Faisal ahmed', 'faisal@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(9, 'KMH hamim', 'hamim@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(10, 'Rukon Uddin', 'rukon@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(11, 'Farhana shirin', 'shirin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(12, 'Minhaz hossen', 'minhaz@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(13, 'Mehedi hassan', 'mehedi@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(14, 'minhaz Rahat', 'hamim@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(15, 'Tania noor', 'tania@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(16, 'Anik sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(17, 'tanni Dhoom', 'tanni@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(18, 'kingshuk dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -198,23 +229,13 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `marks_assign`
---
-ALTER TABLE `marks_assign`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `teacher_id` (`teacher_id`),
-  ADD KEY `session_id` (`session_id`),
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `course_id` (`course_id`),
-  ADD KEY `dist_id` (`dist_id`);
-
---
 -- Indexes for table `num_dist`
 --
 ALTER TABLE `num_dist`
   ADD PRIMARY KEY (`id`),
   ADD KEY `teacher_id` (`teacher_id`),
   ADD KEY `course_id` (`course_id`),
+  ADD KEY `section_id` (`section_id`),
   ADD KEY `session_id` (`session_id`);
 
 --
@@ -253,57 +274,41 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `marks_assign`
---
-ALTER TABLE `marks_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `marks_assign`
---
-ALTER TABLE `marks_assign`
-  ADD CONSTRAINT `marks_assign_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `marks_assign_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`),
-  ADD CONSTRAINT `marks_assign_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `marks_assign_ibfk_4` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
-  ADD CONSTRAINT `marks_assign_ibfk_5` FOREIGN KEY (`dist_id`) REFERENCES `num_dist` (`id`);
 
 --
 -- Constraints for table `num_dist`
@@ -311,7 +316,8 @@ ALTER TABLE `marks_assign`
 ALTER TABLE `num_dist`
   ADD CONSTRAINT `num_dist_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `num_dist_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
-  ADD CONSTRAINT `num_dist_ibfk_3` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`);
+  ADD CONSTRAINT `num_dist_ibfk_3` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `num_dist_ibfk_4` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`);
 
 --
 -- Constraints for table `teacher_assign`

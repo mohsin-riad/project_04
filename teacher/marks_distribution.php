@@ -164,10 +164,11 @@
     if(isset($_POST['submit'])){
         $course_id = $_POST['course'];
         
-        $query3 = "SELECT `session_id` FROM `teacher_assign` WHERE course_id = $course_id";
+        $query3 = "SELECT * FROM `teacher_assign` WHERE course_id = $course_id";
         $sql3 = mysqli_query($conn, $query3);
         $row3 = mysqli_fetch_assoc($sql3);
         $session_id = $row3['session_id'];
+        $section_id = $row3['section_id'];
 
         $query4 = "UPDATE `teacher_assign` SET `status`= 1 WHERE `teacher_id`= $teacher_id AND `course_id`= $course_id";
         mysqli_query($conn, $query4);
@@ -177,7 +178,7 @@
             $cname = $_POST['catagory_name'][$i];
             $cvalue = $_POST['catagory_value'][$i];
 
-            $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $session_id, '$cname', $cvalue)";
+            $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `section_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $section_id, $session_id, '$cname', $cvalue)";
             mysqli_query($conn, $query);
         }
     }
