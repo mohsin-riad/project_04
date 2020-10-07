@@ -47,6 +47,7 @@
                       <th>#ID</th>
                       <th>Course Title</th>
                       <th>Session</th>
+                      <th>Section</th>
                       <th>Category Name</th>
                       <th>Marks</th>
                     </tr>
@@ -75,18 +76,23 @@
                       $query2= "SELECT * FROM `sessions` WHERE id = $session_id";
                       $sql2 = mysqli_query($conn, $query2);
                       $row2 = mysqli_fetch_assoc($sql2);
+                      
+                      $section_id = $row['section_id'];
+                      $query3= "SELECT * FROM `sections` WHERE id = $section_id";
+                      $sql3 = mysqli_query($conn, $query3);
+                      $row3 = mysqli_fetch_assoc($sql3);
                       ?> 
                       <tr class="<?php echo $class[$it]; ?>">
-                        <td> <?php echo $i; ?> </td>
+                        <td> <?php echo $i++; ?> </td>
                         <td> <?php echo $row1['name']; ?> </td>
                         <td> <?php echo $row2['name']; ?> </td>
+                        <td> <?php echo $row3['name']; ?> </td>
                         <td> <?php echo $row['catagory_name']; ?> </td>
                         <td> <?php echo $row['marks']; ?> </td>
                       </tr>
                       <?php
                       if($flag) { $it++; } 
                       else { $it--; } 
-                      $i++;
                     }
                   ?>
                   </tbody>

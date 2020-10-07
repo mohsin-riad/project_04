@@ -58,6 +58,12 @@
                           </div>
                         </div>
                         <div class="form-group">
+                          <label class="control-label col-lg-2" for="credit">Credit</label>
+                          <div class="col-lg-10">
+                              <input type="text" name = "credit" class="form-control">
+                          </div>
+                        </div>
+                        <div class="form-group">
                           <label class="control-label col-lg-2">Type</label>
                           <div class="col-lg-10">
                           <select class="form-control" name="type" id="">
@@ -100,9 +106,10 @@
         //recvd data from input/control
         $name = $_POST['name'];
         $code = $_POST['code'];
+        $credit = $_POST['credit'];
         $type = $_POST['type'];
         //db query
-        $query = "INSERT INTO `courses`(`name`, `code`, `type`) VALUES ('$name','$code','$type')";
+        $query = "INSERT INTO `courses`(`name`, `code`, `credit`, `type`) VALUES ('$name','$code', '$credit', '$type')";
         if(mysqli_query($conn, $query))
         {
             echo "successfully created!!";
