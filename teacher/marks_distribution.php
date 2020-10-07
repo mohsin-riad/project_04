@@ -45,59 +45,47 @@
                   <div class="padd">
                     <div class="card-body">
                       <form action="" method="post">
-                          <div class="form-group">
-                              <label for="">Select course</label>
-                              <select class="form-control" name="course" id="course">
-                                  <option value="">-select course-</option>
-                                  <?php
-                                      $teacher_id = $_SESSION['id'] ; 
-                                      $query1 = "SELECT * FROM `teacher_assign` WHERE teacher_id = $teacher_id";
-                                      $sql1 = mysqli_query($conn, $query1);
-                                      while($row1 = mysqli_fetch_array($sql1)){ 
-                                        if($row1['status'] == 0){
-
-                                          $course_id = $row1['course_id'];
-                                          $query2 = "SELECT * FROM `courses` WHERE id = $course_id";
-                                          $sql2 = mysqli_query($conn, $query2);
-                                          $row2 = mysqli_fetch_assoc($sql2);
-                                          
-                                          $section_id = $row1['section_id'];
-                                          $query3 = "SELECT * FROM `sections` WHERE id = $section_id";
-                                          $sql3 = mysqli_query($conn, $query3);
-                                          $row3 = mysqli_fetch_assoc($sql3);
-                                          
-                                          $session_id = $row1['session_id'];
-                                          $query4 = "SELECT * FROM `sessions` WHERE id = $session_id";
-                                          $sql4 = mysqli_query($conn, $query4);
-                                          $row4 = mysqli_fetch_assoc($sql4);
-                                          ?>
-                                          <option value="<?php echo $row2['id']; ?>"><?php echo $row2['name'].' - '.$row3['name'].' - '.$row4['name']; ?></option>
-                                          <?php 
-                                        }
-                                      }
+                        <div class="form-group">
+                          <label for="">Select Session</label>
+                          <select class="form-control" name="session" id="session">
+                            <option value="">-select session-</option>
+                            <?php
+                              $teacher_id = $_SESSION['id'] ; 
+                              $query = "SELECT DISTINCT `session_id`, `status` FROM `teacher_assign` WHERE teacher_id = $teacher_id";
+                              $sql = mysqli_query($conn, $query);
+                              while($row = mysqli_fetch_array($sql)){ 
+                                if($row['status'] == 0){
+                                  $session_id = $row['session_id'];
+                                  $query1 = "SELECT * FROM `sessions` WHERE id = $session_id";
+                                  $sql1 = mysqli_query($conn, $query1);
+                                  $row1 = mysqli_fetch_assoc($sql1);
                                   ?>
-                              </select>
+                                  <option value="<?php echo $session_id; ?>"><?php echo $row1['name']; ?></option>
+                                  <?php 
+                                }
+                              }
+                            ?>
+                          </select>
+                        </div>
+                        <div class="form-group" id="crs">
+                            <label for="">Select course (specific section)</label>
+                            <select class="form-control" name="course" id="course">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button name="add" id="add" class="btn btn-success">Add</button>
+                        </div>
+                        <div id="dynamic_row" class="form-group row">
+                        </div>
+                        <div class="form-group">
+                          <div class="alert alert-secondary" id="show_total" role="alert">
+                            <label for=""> Total Marks :</label>
+                            <output id="result"></output>
                           </div>
-                          <div class="form-group">
-                              <button name="add" id="add" class="btn btn-success">Add</button>
-                          </div>
-                          <div id="dynamic_row" class="form-group row">
-                              <!-- <div class="col-6">
-                                  <input type="text" name="catagory_name[]" id="" placeholder="enter catagory" class="form-control">
-                              </div>
-                              <div class="col-6">
-                                  <input type="number" name="catagory_value[]" id="" placeholder="enter number" class="form-control">
-                              </div> -->
-                          </div>
-                          <div class="form-group">
-                            <div class="alert alert-secondary" id="show_total" role="alert">
-                              <label for=""> Total Marks :</label>
-                              <output id="result"></output>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                              <button name="submit" id="submit" class="btn btn-primary sub">submit</button>
-                          </div>
+                        </div>
+                        <div class="form-group">
+                            <button name="submit" id="submit" class="btn btn-primary sub">submit</button>
+                        </div>
                       </form>
                   </div>
                   </div>
@@ -108,6 +96,40 @@
         </section>
       </section>
     </section>
+    <script>
+        $(document).ready(function() {
+          //hiding course section
+          $('#crs').hide();
+          $('#session').change(function(){
+              var session = $('#session').val();
+              if(session != ""){
+                  $('#crs').show();
+              }
+              else{
+                  $('#crs').hide();
+              }
+          });
+          $("#session").change(function() {
+            var session_id = $("#session").val();
+            //using ajax
+            
+            $.ajax({
+              url: "get_course.php",
+              dataType: 'json',
+              data: {
+                "session_id" : session_id
+              },
+              success: function(data) {
+                $("#course").html('<option value="">-select course-</option>');
+                for(i=0; i<data.length;i++){
+                  var x = '<option value="'+data[i].course_id+'">'+data[i].course_name+'&emsp;&emsp;&emsp;'+data[i].section_name+'</option>';
+                  $("#course").append(x);
+                }
+              }
+            });
+          });
+        });
+    </script>
     <script>
       $(document).ready(function(){
           $('#show_total').hide();
