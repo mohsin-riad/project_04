@@ -22,8 +22,8 @@
   </head>
   <body>
     <section id="container" class="">
-      <?php include '../include/navbar.php' ?>
-      <?php include '../include/sidebar.php' ?>
+    <?php include '../include/teacher_navbar.php' ?>
+      <?php include '../include/teacher_sidebar.php' ?>
       <section id="main-content">
         <section class="wrapper">
           <div class="row">
@@ -31,7 +31,7 @@
               <h3 class="page-header"><i class="fa fa-laptop"></i>Change Password</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Course</li>
+                <li><i class="fa fa-laptop"></i>change password</li>
               </ol>
             </div>
           </div>

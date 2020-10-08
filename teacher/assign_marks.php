@@ -14,7 +14,7 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>Admin (section creation)</title>
+    <title>Teacher (marks assignation)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include '../include/link.php' ?>
@@ -27,17 +27,17 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i>Section Creation</h3>
+              <h3 class="page-header"><i class="fa fa-laptop"></i>Marks assignation</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Section</li>
+                <li><i class="fa fa-laptop"></i>Marks Assign</li>
               </ol>
             </div>
           </div>
           <div class="col-md-6 portlets">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <div class="pull-left">Enter Section Information</div>
+                <div class="pull-left">Enter Infromation to assign marks</div>
                 <div class="clearfix"></div>
               </div>
               <div class="panel-body">

@@ -30,6 +30,12 @@
                     <span>Assign Marks</span>
                 </a>
             </li>
+            <li class="active">
+                <a class="" href="change-password.php">
+                    <i class="icon_document_alt"></i>
+                    <span>Change Password</span>
+                </a>
+            </li>
         </ul>
     </div>
 </aside>
