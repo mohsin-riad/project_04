@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2020 at 09:15 AM
+-- Generation Time: Oct 08, 2020 at 05:56 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -33,41 +33,42 @@ CREATE TABLE `courses` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `credit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `semester` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `courses`
 --
 
-INSERT INTO `courses` (`id`, `name`, `code`, `credit`, `type`) VALUES
-(1, 'ACC', 'ACC 101', '3', 'theory'),
-(2, 'ICS', 'CSE 110', '2', 'theory'),
-(3, 'ElectCt-1', 'EEE 101', '3', 'theory'),
-(4, 'ENG-1', 'ENG 101', '3', 'theory'),
-(5, 'EM-1', 'MAT 105', '3', 'theory'),
-(6, 'PHY-1', 'PHY 101', '3', 'theory'),
-(7, 'DM', 'CSE 103', '3', 'theory'),
-(8, 'SP', 'CSE 111', '2', 'theory'),
-(9, 'Elect-1', 'EEE 211', '3', 'theory'),
-(10, 'ENG-2', 'ENG 103', '2', 'theory'),
-(11, 'EM-2', 'MAT 107', '3', 'theory'),
-(12, 'PHY-2', 'PHY 103', '3', 'theory'),
-(13, 'OOP', 'CSE 211', '3', 'theory'),
-(14, 'DS', 'CSE 221', '3', 'theory'),
-(15, 'ECO', 'ECO 201', '3', 'theory'),
-(16, 'DE', 'EEE 311', '3', 'theory'),
-(17, 'EM-3', 'MAT 201', '3', 'theory'),
-(18, 'ADA', 'CSE 225', '3', 'theory'),
-(19, 'DMS', 'CSE 237', '3', 'theory'),
-(20, 'SS', 'EEE 201', '3', 'theory'),
-(21, 'EM-4', 'MAT 203', '3', 'theory'),
-(22, 'IBM', 'MGT 203', '3', 'theory'),
-(23, 'MM', 'EEE 371', '3', 'theory'),
-(24, 'SEISD', 'CSE 305', '4', 'theory'),
-(25, 'CE', 'EEE 309', '3', 'theory'),
-(26, 'OB', 'MGT 251', '3', 'theory'),
-(27, 'CMEP', 'CSE 301', '3', 'theory');
+INSERT INTO `courses` (`id`, `name`, `code`, `credit`, `type`, `semester`) VALUES
+(1, 'ACC', 'ACC 101', '3', 'theory', 1),
+(2, 'ICS', 'CSE 110', '2', 'theory', 1),
+(3, 'ElectCt-1', 'EEE 101', '3', 'theory', 1),
+(4, 'ENG-1', 'ENG 101', '3', 'theory', 1),
+(5, 'EM-1', 'MAT 105', '3', 'theory', 1),
+(6, 'PHY-1', 'PHY 101', '3', 'theory', 1),
+(7, 'DM', 'CSE 103', '3', 'theory', 2),
+(8, 'SP', 'CSE 111', '2', 'theory', 2),
+(9, 'Elect-1', 'EEE 211', '3', 'theory', 2),
+(10, 'ENG-2', 'ENG 103', '2', 'theory', 2),
+(11, 'EM-2', 'MAT 107', '3', 'theory', 2),
+(12, 'PHY-2', 'PHY 103', '3', 'theory', 2),
+(13, 'OOP', 'CSE 211', '3', 'theory', 3),
+(14, 'DS', 'CSE 221', '3', 'theory', 3),
+(15, 'ECO', 'ECO 201', '3', 'theory', 3),
+(16, 'DE', 'EEE 311', '3', 'theory', 3),
+(17, 'EM-3', 'MAT 201', '3', 'theory', 3),
+(18, 'ADA', 'CSE 225', '3', 'theory', 4),
+(19, 'DMS', 'CSE 237', '3', 'theory', 4),
+(20, 'SS', 'EEE 201', '3', 'theory', 4),
+(21, 'EM-4', 'MAT 203', '3', 'theory', 4),
+(22, 'IBM', 'MGT 203', '3', 'theory', 4),
+(23, 'MM', 'EEE 371', '3', 'theory', 5),
+(24, 'SEISD', 'CSE 305', '4', 'theory', 5),
+(25, 'CE', 'EEE 309', '3', 'theory', 5),
+(26, 'OB', 'MGT 251', '3', 'theory', 5),
+(27, 'CMEP', 'CSE 301', '3', 'theory', 5);
 
 -- --------------------------------------------------------
 
@@ -191,6 +192,27 @@ INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `se
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `type`
+--
+
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`id`, `name`, `status`) VALUES
+(1, 'Regular', 0),
+(2, 'Retake', 0),
+(3, 'Recourse', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -272,6 +294,12 @@ ALTER TABLE `teacher_assign`
   ADD KEY `session_id` (`session_id`);
 
 --
+-- Indexes for table `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -310,6 +338,12 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `teacher_assign`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
