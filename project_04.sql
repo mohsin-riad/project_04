@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2020 at 11:01 PM
+-- Generation Time: Oct 08, 2020 at 09:15 AM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -224,7 +224,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (15, 'Tania noor', 'tania@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (16, 'Anik sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (17, 'tanni Dhoom', 'tanni@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(18, 'kingshuk dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher');
+(18, 'kingshuk dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(19, 'student1', 'std1@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(20, 'student2', 'std2@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(21, 'student3', 'std3@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student');
 
 --
 -- Indexes for dumped tables
@@ -312,7 +315,7 @@ ALTER TABLE `teacher_assign`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

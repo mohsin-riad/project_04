@@ -79,8 +79,16 @@
             $_SESSION['role'] = $role;
           header('Location: teacher/dashboard.php');
         }
+        else if($role == "student"){
+            $username = $row['name'];
+            $id = $row['id'];
+            $_SESSION['username'] = $username; 
+            $_SESSION['id'] = $id; 
+            $_SESSION['role'] = $role;
+          header('Location: student/dashboard.php');
+        }
         else {
-          echo "Wrong email or password";
+          echo "<strong>Wrong email or password</strong>";
         }
     }
 ?>
