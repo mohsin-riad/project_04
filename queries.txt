@@ -60,6 +60,24 @@ CREATE TABLE num_dist(
     FOREIGN KEY (session_id) REFERENCES sessions(id)
 );
 
+CREATE TABLE enrollment(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    student_id int,
+    course_id int,
+    type_id int,
+    section_id int,
+    teacher_id int,
+    session_id int,
+    status int,
+    FOREIGN KEY (student_id) REFERENCES users(id),
+    FOREIGN KEY (teacher_id) REFERENCES users(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id),
+    FOREIGN KEY (section_id) REFERENCES sections(id),
+    FOREIGN KEY (session_id) REFERENCES sessions(id),
+    FOREIGN KEY (course_type_id) REFERENCES type(id)
+);
+
+
 // unused table
 CREATE TABLE marks_assign(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
