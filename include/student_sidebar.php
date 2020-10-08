@@ -8,8 +8,8 @@
                 </a>
             </li>
             <li class="active">
-                <a class="" href="#">
-                    <i class="icon_genius"></i>
+                <a class="" href="enrollment.php">
+                    <i class="icon_document_alt"></i>
                     <span>Enrollment</span>
                 </a>
             </li>

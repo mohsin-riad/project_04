@@ -12,12 +12,19 @@ CREATE TABLE sections(
     semester varchar(255)
 );
 
+CREATE TABLE type(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    status int
+);
+
 CREATE TABLE courses(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name varchar(255),
     code varchar(255),
     credit varchar(255),
-    type varchar(255)
+    type varchar(255),
+    semester int
 );
 
 CREATE TABLE sessions(
