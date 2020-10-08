@@ -69,6 +69,13 @@
                         </div>
 
                         <div class="form-group">
+                          <label class="control-label col-lg-2" for="credit">Credit</label>
+                          <div class="col-lg-10">
+                              <input type="text" value="<?php echo $courses['credit'];?>" name = "credit" id="" class="form-control">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
                           <label class="control-label col-lg-2">Type</label>
                             <div class="col-lg-10">
                                 <select class = "form-control" name = "type" id="">
@@ -104,9 +111,10 @@
         $name = $_POST['name'];
         $code = $_POST['code'];
         $type = $_POST['type'];
-        echo "HAHA";
+        $credit = $_POST['credit'];
+
         //db query
-        $qry="UPDATE `courses` SET name='$name', code='$code', type='$type' WHERE id = $id";
+        $qry="UPDATE `courses` SET name='$name', code='$code', type='$type', credit = '$credit'  WHERE id = $id";
         if(mysqli_query($conn,$qry)){
             //header('Location:course-table.php');
             echo "<script type='text/javascript'>

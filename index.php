@@ -67,8 +67,9 @@
         if($role == 'admin'){
           $username = $row['name'];
           $_SESSION['username'] = $username; 
-            $_SESSION['role'] = $role;
-            header('Location: admin/dashboard.php');
+          $_SESSION['role'] = $role;
+          $_SESSION['id'] = $id; 
+          header('Location: admin/dashboard.php');
         }
         //teacher login
         else if($role == "teacher"){
@@ -79,6 +80,7 @@
             $_SESSION['role'] = $role;
           header('Location: teacher/dashboard.php');
         }
+        //student login
         else if($role == "student"){
             $username = $row['name'];
             $id = $row['id'];
