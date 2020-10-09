@@ -23,6 +23,12 @@
                 </ul>
             </li>
             <li>
+                <a class="" href="manage_sessions.php">
+                    <i class="icon_documents_alt"></i>
+                    <span>Manage Sessions</span>
+                </a>
+            </li>
+            <li>
                 <a class="" href="teacher_assign.php">
                     <i class="icon_document_alt"></i>
                     <span>Teacher Assign</span>
