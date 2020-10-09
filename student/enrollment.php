@@ -49,7 +49,15 @@
                     <div class="card-body">
                         <div class="form-group">
                           <select class="form-control" name="session" id="session">
-                            <option value="">-select session-</option>
+                            <option value=" ">-select session-</option>
+                            <?php 
+                                  $qry = "SELECT * FROM sessions WHERE status=1";
+                                  $r = mysqli_query($conn, $qry);
+                                  while($row4 = mysqli_fetch_array($r)){ ?>
+                                    <option value="<?php echo $row4['id']; ?>"><?php echo $row4['name']; ?></option> 
+                                    <?php 
+                                  }
+                                ?>
                           </select>
                         </div>
                       </div>
@@ -78,16 +86,12 @@
                       <?php 
                       $query = "SELECT * FROM `courses` WHERE 1";
                       $sql = mysqli_query($conn, $query);
-                      $class = ['active', 'success', 'warning', 'danger'];
-                      $it = 0;
-                      $i = 1;
-                      $flag = True;
+                      $class = ['active', 'success'];
+                      $it = 1;
+                      $i=0;
                       while($row = mysqli_fetch_array($sql)){ 
-                        if($it == 4 || $it == -1) { 
-                          $flag ^= 1; 
-                          $it = ($flag)? $it+=2 : $it-=2;
-                        } 
-                        
+                          $it ^= 1;
+                          $i++;
                         ?> 
                         <tr class="<?php echo $class[$it]; ?>">
                           <td>
@@ -101,7 +105,7 @@
                           <td> 
                             <div class="form-group">
                               <select class="form-control input-sm m-bot15" name="section[]" id="section">
-                                <option value="">-select section-</option>
+                                <option value=" ">-select section-</option>
                                 <?php 
                                   $semester = $row['semester'];
                                   $query2 = "select sections.id, sections.name from courses, sections where courses.semester = sections.semester and sections.semester = $semester";
@@ -120,7 +124,7 @@
                           <td> 
                             <div class="form-group">
                               <select class="form-control input-sm m-bot15" name="type[]" id="type">
-                                <option value="">-select course type-</option>
+                                <option value=" ">-select course type-</option>
                                 <?php 
                                   $query1 = "SELECT * FROM `type` WHERE 1";
                                   $sql1 = mysqli_query($conn, $query1);
@@ -134,9 +138,7 @@
                           </td>
                         </tr>
                         <?php
-                        if($flag) { $it++; } 
-                        else { $it--; } 
-                        $i++;
+                        
                       }
                     ?>
                     </tbody>
@@ -152,6 +154,42 @@
                 </div>
               </div>
             </div>
+            <?php //not done yet
+  if(isset($_POST['submit'])){
+    if(!empty($_POST['check_list'])){
+      $session_id = $_POST['session'];
+      $id = $_SESSION['id'];
+      $course_id=[];
+      $section_id=[];
+      $type_id=[];
+      
+      $i=0;
+      foreach($_POST['check_list'] as $selected) {$course_id[$i] = $selected;$i++;}
+
+      $i=0;
+      foreach($_POST['section'] as $selected) {if($selected!=" "){$section_id[$i] = $selected;$i++;}}
+      $i=0;
+      foreach($_POST['type'] as $selected) {if($selected!=" "){$type_id[$i] = $selected;$i++;}}
+
+      $n = count($course_id);
+      for($i=0;$i<$n;$i++){
+        echo $section_id[$i].' ';
+        echo $course_id[$i].' ';
+        echo $session_id;
+          $qry = "SELECT * FROM teacher_assign WHERE section_id='$section_id[$i]' AND course_id='$course_id[$i]' AND session_id=$session_id AND status=0";
+          $r = mysqli_query($conn, $qry);
+          $row = mysqli_fetch_array($r);
+          $teacher_id = $row['teacher_id'];
+          echo $teacher_id;
+          $qry = "INSERT INTO enrollment(student_id,course_id,type_id,section_id,teacher_id,session_id,status) VALUES ($id, $course_id[$i], $type_id[$i], $section_id[$i], $teacher_id,$session_id,0)";
+          if (mysqli_query($conn, $qry)){
+            echo "assigned";
+              //enrollment table hreader korbe.
+          }
+      }
+    }
+  }
+?>
           </form>
         </section>
       </section>
@@ -160,23 +198,3 @@
   </body>
 </html>
 
-<?php //not done yet
-  if(isset($_POST['submit'])){
-    if(!empty($_POST['check_list'])){
-      $data1=[];
-      $data2=[];
-      $data3=[];
-      $i=0;
-      foreach($_POST['check_list'] as $selected) { $data1[$i] = $selected ; $i++; }
-      $i=0;
-      foreach($_POST['section'] as $selected) { $data2[$i] = $selected ; $i++; }
-      $i=0;
-      foreach($_POST['type'] as $selected) { $data3[$i] = $selected ; $i++; }
-      $n = $i;
-      for($i=0; $i < $n ;$i++){
-        echo $data1[$i].' - '.$data2[$i].' - '.$data3[$i];
-        echo '<br>';
-      }
-    }
-  }
-?>
