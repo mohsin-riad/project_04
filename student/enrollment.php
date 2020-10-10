@@ -28,10 +28,10 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i> Enrollment</h3>
+              <h3 class="page-header"><i class="fa fa-check-square-o" aria-hidden="true"></i>Enrollment</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Enrollment</li>
+                <li><i class="fa fa-check-square-o" aria-hidden="true"></i>Enrollment</li>
               </ol>
             </div>
           </div>
@@ -66,7 +66,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div class="row" id="course_list">
               <div class="col-sm-1"></div>
               <div class="col-sm-8">
                 <section class="panel">
@@ -138,15 +138,12 @@
                           </td>
                         </tr>
                         <?php
-                        
                       }
                     ?>
                     </tbody>
                   </table>
                 </section>
               </div>
-            </div>
-            <div class="row">
               <div class="col-sm-5"></div>
               <div class="col-sm-7">
                 <div class="form-group">
@@ -158,6 +155,17 @@
         </section>
       </section>
     </section>
+    <script>
+      $(document).ready(function() {
+        //hiding course section
+        $('#course_list').hide();
+        $('#session').change(function(){
+            var session = $('#session').val();
+            if(session != " "){ $('#course_list').show(); }
+            else{ $('#course_list').hide(); }
+        });
+      });
+    </script>
     <?php include '../include/script.php' ?>
   </body>
 </html>
@@ -195,4 +203,3 @@
     }
   }
 ?>
-

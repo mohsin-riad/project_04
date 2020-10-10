@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2020 at 11:07 PM
+-- Generation Time: Oct 10, 2020 at 12:57 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -86,6 +86,13 @@ CREATE TABLE `enrollment` (
   `session_id` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `enrollment`
+--
+
+INSERT INTO `enrollment` (`id`, `student_id`, `course_id`, `type_id`, `section_id`, `teacher_id`, `session_id`, `status`) VALUES
+(1, 19, 13, 1, 7, 12, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -171,8 +178,8 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `name`, `status`) VALUES
 (1, 'Spring 2019', 0),
-(2, 'fall 2019', 0),
-(3, 'Spring 2020', 0),
+(2, 'fall 2019', 1),
+(3, 'Spring 2020', 1),
 (4, 'fall 2020', 0),
 (5, 'Spring 2021', 0),
 (6, 'fall 2021', 0),
@@ -348,7 +355,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `num_dist`

@@ -28,10 +28,10 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i>Change Password</h3>
+              <h3 class="page-header"><i class="fa fa-wrench" aria-hidden="true"></i>Change Password</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>change password</li>
+                <li><i class="fa fa-wrench" aria-hidden="true"></i>change password</li>
               </ol>
             </div>
           </div>
