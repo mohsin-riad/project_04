@@ -7,11 +7,16 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="active">
-                <a class="" href="enrollment.php">
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
                     <i class="icon_document_alt"></i>
                     <span>Enrollment</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
+                <ul class="sub">
+                    <li><a class="" href="enrollment.php">Enroll</a></li>
+                    <li><a class="" href="pending_enrollment.php">Pending</a></li>
+                </ul>
             </li>
             <li class="active">
                 <a class="" href="#">
