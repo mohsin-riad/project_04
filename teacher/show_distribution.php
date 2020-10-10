@@ -28,10 +28,10 @@
         <section class="wrapper">
           <div class="row">
             <div class="col-lg-12">
-              <h3 class="page-header"><i class="fa fa-laptop"></i>Distribution Display</h3>
+              <h3 class="page-header"><i class="fa fa-list-alt" aria-hidden="true"></i>Distribution Display</h3>
               <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="dashboard.php">Home</a></li>
-                <li><i class="fa fa-laptop"></i>Show Distribution</li>
+                <li><i class="fa fa-list-alt" aria-hidden="true"></i>Show Distribution</li>
               </ol>
             </div>
           </div>
