@@ -35,73 +35,47 @@
               </ol>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-8">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-8 portlets">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="pull-left">Select Available Session</div>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="panel-body">
+                  <div class="padd">
+                    <div class="card-body">
+                        <div class="form-group">
+                          <select class="form-control" name="session" id="session">
+                            <option value=" ">-select session-</option>
+                            <?php 
+                              $qry = "SELECT * FROM sessions WHERE status = 1";
+                              $r = mysqli_query($conn, $qry);
+                              while($row4 = mysqli_fetch_array($r)){ ?>
+                                <option value="<?php echo $row4['id']; ?>"><?php echo $row4['name']; ?></option> 
+                                <?php 
+                              }
+                            ?>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+         </div>
+         <div class="col-md-1"></div>
+          <div class="col-md-8 portlets">
               <section class="panel">
                 <header class="panel-heading">
                   My Requested Courses
                 </header>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>#ID</th>
-                      <th>Course Title</th>
-                      <th>Credit</th>
-                      <th>Section</th>
-                      <th>type</th>
-                      <th>Session</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php 
-                    $student_id = $_SESSION['id'];
-                    $query = "SELECT * FROM `enrollment` WHERE student_id = $student_id";
-                    $sql = mysqli_query($conn, $query);
-                    $class = ['active', 'success', 'warning', 'danger'];
-                    $it = 0;
-                    $i = 1;
-                    $flag = True;
-                    while($row = mysqli_fetch_array($sql)){ 
-                      if($it == 4 || $it == -1) { 
-                        $flag ^= 1; 
-                        $it = ($flag)? $it+=2 : $it-=2;
-                      } 
-                      
-                      $course_id = $row['course_id'];
-                      $query1= "SELECT * FROM `courses` WHERE id = $course_id";
-                      $sql1 = mysqli_query($conn, $query1);
-                      $row1 = mysqli_fetch_assoc($sql1);
-                      
-                      $session_id = $row['session_id'];
-                      $query2= "SELECT * FROM `sessions` WHERE id = $session_id";
-                      $sql2 = mysqli_query($conn, $query2);
-                      $row2 = mysqli_fetch_assoc($sql2);
+                <table class="table" id="myTable">
+                
+                <!-- used in ajax -->
 
-                      $section_id = $row['section_id'];
-                      $query3= "SELECT * FROM `sections` WHERE id = $section_id";
-                      $sql3 = mysqli_query($conn, $query3);
-                      $row3 = mysqli_fetch_assoc($sql3);
-                      
-                      $type_id = $row['type_id'];
-                      $query4= "SELECT * FROM `type` WHERE id = $type_id";
-                      $sql4 = mysqli_query($conn, $query4);
-                      $row4 = mysqli_fetch_assoc($sql4);
-                      ?> 
-                      <tr class="<?php echo $class[$it]; ?>">
-                        <td> <?php echo $i; ?> </td>
-                        <td> <?php echo $row1['name'].' ('.$row1['type'].')'; ?> </td>
-                        <td> <?php echo $row1['credit']; ?> </td>
-                        <td> <?php echo $row3['name']; ?> </td>
-                        <td> <?php echo $row4['name']; ?> </td>
-                        <td> <?php echo $row2['name']; ?> </td>
-                      </tr>
-                      <?php
-                      if($flag) { $it++; } 
-                      else { $it--; } 
-                      $i++;
-                    }
-                  ?>
-                  </tbody>
                 </table>
               </section>
             </div>
@@ -110,5 +84,53 @@
       </section>
     </section>
     <?php include '../include/script.php' ?>
+
+    <script>
+      $(document).ready(function(){
+          $("#session").change(function(){
+            var session = $("#session").val();
+            //ajax used: 
+            $.ajax({
+              url: "getsession.php",
+              dataType: 'json',
+              data : {
+                  "session_id" : session
+              },
+              success: function(data){
+                  console.log(data);
+                  var a;
+                  for(i=0;i<data.length;i++){
+                    $('#myTable').html("<thead>\
+                    <tr>\
+                      <th>#ID</th>\
+                      <th>Course Title</th>\
+                      <th>Credit</th>\
+                      <th>Section</th>\
+                      <th>type</th>\
+                      <th>Status</th>\
+                    </tr>\
+                  </thead>");
+                    if(i%2==0){a="active";}
+                    else {a="success";}
+                    x = "<tbody > <tr class='"+a+"'>"+
+                        "<td>  "+(i+1)+"  </td>\
+                        <td> "+data[i].course+" ("+data[i].course_type+") </td>"+
+                        "<td> "+data[i].credit+" </td>"+
+                        "<td>"+ data[i].section+" </td>"+
+                        "<td> "+data[i].type+" </td>"+
+                        "<td> "+data[i].status+" </td>"+
+                      "</tr> </tbody>";
+                      $('#myTable').append(x);
+                    }
+              }
+            });
+            
+          });
+      });
+    </script>
   </body>
 </html>
+
+
+
+          
