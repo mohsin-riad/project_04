@@ -1,5 +1,14 @@
 <?php 
     session_start();
+    //authorization
+    if(!$_SESSION['username']){
+        session_destroy();
+        header('Location: ../index.php');
+    }
+      else if($_SESSION['username'] && $_SESSION['role'] != 'student'){
+        session_destroy();
+        header('Location: ../unauthorised_user.php');
+    }
     include '../include/connection.php';
     $session_id = $_REQUEST['session_id'];
     $id = $_SESSION['id'];
