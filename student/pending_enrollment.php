@@ -67,15 +67,13 @@
             </div>
          </div>
          <div class="col-md-1"></div>
-          <div class="col-md-8 portlets">
+          <div class="col-md-8 portlets" id="course_list">
               <section class="panel">
                 <header class="panel-heading">
                   My Requested Courses
                 </header>
                 <table class="table" id="myTable">
-                
-                <!-- used in ajax -->
-
+                  <!-- used in ajax -->
                 </table>
               </section>
             </div>
@@ -84,48 +82,53 @@
       </section>
     </section>
     <?php include '../include/script.php' ?>
-
     <script>
       $(document).ready(function(){
-          $("#session").change(function(){
-            var session = $("#session").val();
-            //ajax used: 
-            $.ajax({
-              url: "getsession.php",
-              dataType: 'json',
-              data : {
-                  "session_id" : session
-              },
-              success: function(data){
-                  console.log(data);
-                  var a;
-                  for(i=0;i<data.length;i++){
-                    $('#myTable').html("<thead>\
-                    <tr>\
-                      <th>#ID</th>\
-                      <th>Course Title</th>\
-                      <th>Credit</th>\
-                      <th>Section</th>\
-                      <th>type</th>\
-                      <th>Status</th>\
-                    </tr>\
-                  </thead>");
-                    if(i%2==0){a="active";}
-                    else {a="success";}
-                    x = "<tbody > <tr class='"+a+"'>"+
-                        "<td>  "+(i+1)+"  </td>\
-                        <td> "+data[i].course+" ("+data[i].course_type+") </td>"+
-                        "<td> "+data[i].credit+" </td>"+
-                        "<td>"+ data[i].section+" </td>"+
-                        "<td> "+data[i].type+" </td>"+
-                        "<td> "+data[i].status+" </td>"+
-                      "</tr> </tbody>";
-                      $('#myTable').append(x);
-                    }
+        //hiding course section
+        $('#course_list').hide();
+        $('#session').change(function(){
+            var session = $('#session').val();
+            if(session != " "){ $('#course_list').show(); }
+            else{ $('#course_list').hide(); }
+        });
+        $("#session").change(function(){
+          var session = $("#session").val();
+          //ajax used: 
+          $.ajax({
+            url: "getsession.php",
+            dataType: 'json',
+            data : {
+                "session_id" : session
+            },
+            success: function(data){
+              //console.log(data);
+              var a;
+              for(i=0;i<data.length;i++){
+                $('#myTable').html("<thead>\
+                <tr>\
+                  <th>#ID</th>\
+                  <th>Course Title</th>\
+                  <th>Credit</th>\
+                  <th>Section</th>\
+                  <th>type</th>\
+                  <th>Status</th>\
+                </tr>\
+              </thead>");
+                if(i%2==0){a="success";}
+                else {a="warning";}
+                x = "<tbody > <tr class='"+a+"'>"+
+                    "<td>  "+(i+1)+"  </td>\
+                     <td> "+data[i].course+" ("+data[i].course_type+") </td>"+
+                    "<td> "+data[i].credit+" </td>"+
+                    "<td>"+ data[i].section+" </td>"+
+                    "<td> "+data[i].type+" </td>"+
+                    "<td> "+data[i].status+" </td>"+
+                  "</tr> </tbody>";
+                $('#myTable').append(x);
               }
-            });
-            
+            }
           });
+        });
       });
     </script>
   </body>

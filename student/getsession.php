@@ -1,16 +1,6 @@
 <?php 
     session_start();
-    //authorization
-    if(!$_SESSION['username']){
-      session_destroy();
-      header('Location: ../index.php');
-    }
-    else if($_SESSION['username'] && $_SESSION['role'] != 'student'){
-      session_destroy();
-      header('Location: ../unauthorised_user.php');
-    }
     include '../include/connection.php';
-
     $session_id = $_REQUEST['session_id'];
     $id = $_SESSION['id'];
     $qry = "SELECT * FROM enrollment WHERE student_id = $id AND session_id = $session_id";
@@ -46,7 +36,6 @@
             else if($row['status']==1) {$data[$i]['status'] ="<p style='color: Green;'>Approved</p>";}
             else if($row['status']==2) {$data[$i]['status'] ="<p style='color: Red;'>Rejected</p>";} 
             $i++;
-            
     }
     //echo $data[0]['course'] .' '.$data[0]['course_type'].' '.$data[0]['credit'];
     echo json_encode($data);
