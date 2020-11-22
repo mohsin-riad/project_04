@@ -9,6 +9,8 @@
       session_destroy();
       header('Location: ../unauthorised_user.php');
     }
+    $id = $_SESSION['id'];
+    include '../include/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -34,67 +36,139 @@
               </ol>
             </div>
           </div>
-          <div class="col-md-6 portlets">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <div class="pull-left">Enter Infromation to assign marks</div>
-                <div class="clearfix"></div>
-              </div>
-              <div class="panel-body">
-                <div class="padd">
-                  <div class="form quick-post">
-                    <form class="form-horizontal" method="post" action="section.php">
-                      <div class="form-group">
-                        <label class="control-label col-lg-2" for="name">Name</label>
-                        <div class="col-lg-10">
-                          <input type="text" name = "name" class="form-control">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-lg-2">Semester</label>
-                        <div class="col-lg-10">
-                          <select name="semester" id="" class="form-control">
-                            <option value="">- Choose Semester -</option>
-                            <?php  
-                              $i = 1;
-                              while(8 >= $i){ ?>
-                                <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php $i++; 
+          <form action="#" method="post">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-5 portlets">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="pull-left">Select Available Session</div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="padd">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <select class="form-control" name="session" id="session">
+                            <option value=" ">-select session-</option>
+                            <?php 
+                              $qry = "SELECT DISTINCT sessions.id, sessions.name FROM sessions, teacher_assign WHERE teacher_assign.teacher_id = $id AND teacher_assign.session_id = sessions.id";
+                              $r = mysqli_query($conn, $qry);
+                              while($row4 = mysqli_fetch_array($r)){ ?>
+                                <option value="<?php echo $row4['id']; ?>"><?php echo $row4['name']; ?></option> 
+                                <?php 
                               }
                             ?>
                           </select>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="col-lg-offset-2 col-lg-9">
-                          <button type="submit" name = "submit" class="btn btn-primary">Create</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 portlets" id="course_list">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="pull-left">Select Available Course</div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="padd">
+                      <div class="card-body">
+                        <div class="form-group">
+                          <select class="form-control" name="course" id="course">
+                            <option value=" ">-select session-</option>
+                            <?php 
+                              $sql = "SELECT courses.id, courses.name, sections.id, sections.name FROM courses, sections, teacher_assign WHERE teacher_assign.teacher_id = $id AND teacher_assign.course_id = courses.id AND teacher_assign.section_id = sections.id";
+                              $r = mysqli_query($conn, $qry);
+                              while($row4 = mysqli_fetch_array($r)){ ?>
+                                <option value = "<?php echo $row4['courses.id']; ?>"><?php echo $row4['courses.name']; ?></option> 
+                                <?php 
+                              }
+                            ?>
+                          </select>
                         </div>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="row" id="student_marks">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-10">
+                <section class="panel">
+                  <header class="panel-heading">Enrolled Students</header>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>#S/N</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Section</th>
+                        <th>Type</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </section>
+              </div>
+              <div class="col-sm-5"></div>
+              <div class="col-sm-7">
+                <div class="form-group">
+                  <button name="submit" id="submit" class="btn btn-primary sub">submit</button>
+                </div>
+              </div>
+            </div>
+          </form>
         </section>
       </section>
     </section>
+    <script>
+      $(document).ready(function() {
+        //hiding course section
+        $('#course_list').hide();
+        $('#student_marks').hide();
+        $('#session').change(function(){
+          var session = $('#session').val();
+          if(session != " "){
+            $('#course_list').show();
+            $('#course').change(function(){
+              var course = $('#course').val();
+              if(course != " "){ $('#student_marks').show(); }
+              else { $('#student_marks').hide(); }
+            });
+          }
+          else{ $('#course_list').hide(); $('#student_marks').hide(); }
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+        $("#session").change(function() {
+          var session_id = $("#session").val();
+          //using ajax
+          $.ajax({
+            url: "get_course.php",
+            dataType: 'json',
+            data: {
+              "session_id" : session_id
+            },
+            success: function(data) {
+              $("#course").html('<option value=" ">-select course-</option>');
+              for(i=0; i<data.length;i++){
+                var x = '<option value="'+data[i].course_id+'">'+data[i].course_name+'&emsp;&emsp;&emsp;'+data[i].section_name+'</option>';
+                $("#course").append(x);
+              }
+            }
+          });
+        });
+      });
+    </script>
+
     <?php include '../include/script.php' ?>
   </body>
 </html>
 
 <?php 
-    include '../include/connection.php';
-    if(isset($_POST['submit']))
-    {
-        //recvd data from input/control
-        $name = $_POST['name'];
-        $semester = $_POST['semester'];
-        //db query
-        $query = "INSERT INTO `sections`( `name`, `semester`) VALUES ('$name', '$semester')";
-        if(mysqli_query($conn, $query))
-        {
-            echo "successfully created!!";
-        }
-    }
+    
 ?>
