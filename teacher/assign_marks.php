@@ -77,15 +77,8 @@
                       <div class="card-body">
                         <div class="form-group">
                           <select class="form-control" name="course" id="course">
-                            <option value=" ">-select session-</option>
-                            <?php 
-                              $sql = "SELECT courses.id, courses.name, sections.id, sections.name FROM courses, sections, teacher_assign WHERE teacher_assign.teacher_id = $id AND teacher_assign.course_id = courses.id AND teacher_assign.section_id = sections.id";
-                              $r = mysqli_query($conn, $qry);
-                              while($row4 = mysqli_fetch_array($r)){ ?>
-                                <option value = "<?php echo $row4['courses.id']; ?>"><?php echo $row4['courses.name']; ?></option> 
-                                <?php 
-                              }
-                            ?>
+                            <!-- <option value=" ">-select course-</option>  -->
+                            <!-- ajax -->
                           </select>
                         </div>
                       </div>
@@ -99,23 +92,25 @@
               <div class="col-sm-10">
                 <section class="panel">
                   <header class="panel-heading">Enrolled Students</header>
-                  <table class="table">
+                  <table class="table" id="student_dist">
                     <thead>
                       <tr>
-                        <th>#S/N</th>
+                        <!-- <th>#S/N</th>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Section</th>
-                        <th>Type</th>
+                        <th>Name</th>-->
                       </tr>
                     </thead>
+                    <tbody>
+                      <tr>
+                      </tr>
+                    </tbody>
                   </table>
                 </section>
               </div>
               <div class="col-sm-5"></div>
               <div class="col-sm-7">
                 <div class="form-group">
-                  <button name="submit" id="submit" class="btn btn-primary sub">submit</button>
+                  <button name="submit" id="submit" class="btn btn-primary sub">Proceed save</button>
                 </div>
               </div>
             </div>
@@ -156,7 +151,7 @@
             success: function(data) {
               $("#course").html('<option value=" ">-select course-</option>');
               for(i=0; i<data.length;i++){
-                var x = '<option value="'+data[i].course_id+'">'+data[i].course_name+'&emsp;&emsp;&emsp;'+data[i].section_name+'</option>';
+                var x = '<option value="'+data[i].course_id+'|'+data[i].section_id+'">'+data[i].course_name+'&emsp;&emsp;&emsp;'+data[i].section_name+'</option>';
                 $("#course").append(x);
               }
             }
@@ -164,7 +159,59 @@
         });
       });
     </script>
+    <script>
+      $(document).ready(function() {
+        $("#course").change(function() {
+          var cnt = 0;
+          var course_id = $("#course").val().split('|')[0];
+          var section_id = $("#course").val().split('|')[1];
+          var session_id = $("#session").val();
+          //alert(course_id+'-'+section_id+'-'+session_id);
+          // using ajax
+          $.ajax({
+            url: "get_students_dist_form.php",
+            dataType: 'json',
+            data: {
+              "course_id" : course_id,
+              "session_id" : session_id,
+              "section_id" : section_id
+            },
+            success: function(data) {
+              console.log(data);
+              $("#student_dist thead tr").html('\
+                <th>#S/N</th>\
+                <th>ID</th>\
+                <th>Name</th>\
+                ');
+              for(i=0; i<data.length;i++){
+                var x = '<th>'+data[i].catagory_name+' ('+data[i].marks+') '+'</th>';
+                $("#student_dist thead tr").append(x);
+                cnt++;
+              }
+              $("#student_dist thead tr").append('<th>Total</th>');
+            }
+          });
 
+          $.ajax({
+            url: "get_enrolled_students.php",
+            dataType: 'json',
+            data: {
+              "course_id" : course_id,
+              "session_id" : session_id,
+              "section_id" : section_id
+            },
+            success: function(data) {
+              console.log(data);
+              $("#student_dist tbody tr").html(' ');
+              for(i=0; i<data.length;i++){
+                var x = '<tr><td>'+(i+1)+'</td>'+'<td>'+data[i].student_id+'</td>'+'<td>'+data[i].name+'</td></tr>';
+                $("#student_dist tbody ").append(x);
+              }
+            }
+          });
+        });
+      });
+    </script>
     <?php include '../include/script.php' ?>
   </body>
 </html>
