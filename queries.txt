@@ -81,11 +81,11 @@ CREATE TABLE enrollment(
 // unused table
 CREATE TABLE marks_assign(
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    teacher_id int,
-    session_id int,
     student_id int,
+    teacher_id int,
     course_id int,
     section_id int,
+    session_id int,
     dist_id int,
     marks int,
     FOREIGN KEY (teacher_id) REFERENCES users(id),

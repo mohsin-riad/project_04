@@ -189,15 +189,27 @@
       $n = count($course_id);
       //* one must choose a course in which a teacher is assigned 'Ex: check teacher assign'
       for($i=0;$i<$n;$i++){
-        $qry = "SELECT * FROM teacher_assign WHERE section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id"; // For later use 'AND status=0'
+        $qry = "SELECT * FROM teacher_assign WHERE section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id AND status = 1"; // For later use 'AND status=0'
         $r = mysqli_query($conn, $qry);
         $row = mysqli_fetch_assoc($r);
         $teacher_id = $row['teacher_id'];
         //echo ' sec: '.$section_id[$i].' course: '.$course_id[$i].' type: '.$type_id[$i].' teacher: '.$teacher_id.'<br>'; //sidebar toggle korle printed value dekhabe :)
         $qry = "INSERT INTO enrollment(student_id,course_id,type_id,section_id,teacher_id,session_id,status) VALUES ($id, $course_id[$i], $type_id[$i], $section_id[$i], $teacher_id,$session_id,0)";
         if (mysqli_query($conn, $qry)){
-          echo "assigned";
-            //enrollment table hreader korbe.
+          //echo "assigned\n";
+          //enrollment table e inserted hobe.
+          $qry1 = "SELECT * FROM num_dist WHERE teacher_id=$teacher_id AND section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id"; 
+          $sql1 = mysqli_query($conn, $qry1);
+
+          while($row1 = mysqli_fetch_array($sql1)){
+            $dist_id = $row1['id'];
+            $qry2 = "INSERT INTO `marks_assign`(`student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES ($id, $teacher_id, $course_id[$i], $section_id[$i], $session_id, $dist_id, 0)";
+            //echo $qry2;
+            if (mysqli_query($conn, $qry2)){
+              //echo "insert seccess\n";
+            }
+          }
+          //marks_assign table e inserted hobe.
         }
       }
     }

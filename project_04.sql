@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 07:18 PM
+-- Generation Time: Nov 23, 2020 at 10:37 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -92,11 +92,35 @@ CREATE TABLE `enrollment` (
 --
 
 INSERT INTO `enrollment` (`id`, `student_id`, `course_id`, `type_id`, `section_id`, `teacher_id`, `session_id`, `status`) VALUES
-(1, 19, 13, 1, 7, 12, 1, 1),
-(2, 20, 23, 1, 13, 18, 3, 1),
-(3, 20, 24, 1, 14, 16, 3, 1),
-(4, 20, 25, 1, 13, 17, 3, 1),
-(5, 20, 27, 1, 13, 15, 3, 1);
+(11, 20, 24, 1, 14, 16, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `marks_assign`
+--
+
+CREATE TABLE `marks_assign` (
+  `id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL,
+  `course_id` int(11) DEFAULT NULL,
+  `section_id` int(11) DEFAULT NULL,
+  `session_id` int(11) DEFAULT NULL,
+  `dist_id` int(11) DEFAULT NULL,
+  `marks` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `marks_assign`
+--
+
+INSERT INTO `marks_assign` (`id`, `student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES
+(1, 20, 16, 24, 14, 3, 20, 0),
+(2, 20, 16, 24, 14, 3, 21, 0),
+(3, 20, 16, 24, 14, 3, 22, 0),
+(4, 20, 16, 24, 14, 3, 23, 0),
+(5, 20, 16, 24, 14, 3, 24, 0);
 
 -- --------------------------------------------------------
 
@@ -319,6 +343,18 @@ ALTER TABLE `enrollment`
   ADD KEY `type_id` (`type_id`);
 
 --
+-- Indexes for table `marks_assign`
+--
+ALTER TABLE `marks_assign`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teacher_id` (`teacher_id`),
+  ADD KEY `session_id` (`session_id`),
+  ADD KEY `student_id` (`student_id`),
+  ADD KEY `course_id` (`course_id`),
+  ADD KEY `section_id` (`section_id`),
+  ADD KEY `dist_id` (`dist_id`);
+
+--
 -- Indexes for table `num_dist`
 --
 ALTER TABLE `num_dist`
@@ -376,6 +412,12 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `marks_assign`
+--
+ALTER TABLE `marks_assign`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -428,6 +470,17 @@ ALTER TABLE `enrollment`
   ADD CONSTRAINT `enrollment_ibfk_4` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`),
   ADD CONSTRAINT `enrollment_ibfk_5` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`),
   ADD CONSTRAINT `enrollment_ibfk_6` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`);
+
+--
+-- Constraints for table `marks_assign`
+--
+ALTER TABLE `marks_assign`
+  ADD CONSTRAINT `marks_assign_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `marks_assign_ibfk_2` FOREIGN KEY (`session_id`) REFERENCES `sessions` (`id`),
+  ADD CONSTRAINT `marks_assign_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `marks_assign_ibfk_4` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `marks_assign_ibfk_5` FOREIGN KEY (`section_id`) REFERENCES `sections` (`id`),
+  ADD CONSTRAINT `marks_assign_ibfk_6` FOREIGN KEY (`dist_id`) REFERENCES `num_dist` (`id`);
 
 --
 -- Constraints for table `num_dist`
