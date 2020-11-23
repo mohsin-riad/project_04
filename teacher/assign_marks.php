@@ -110,7 +110,7 @@
               <div class="col-sm-5"></div>
               <div class="col-sm-7">
                 <div class="form-group">
-                  <button name="submit" id="submit" class="btn btn-primary sub">Proceed save</button>
+                  <button name="submit" id="submit" class="btn btn-primary sub">Save Progress</button>
                 </div>
               </div>
             </div>

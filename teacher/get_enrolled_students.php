@@ -5,7 +5,7 @@
     $course_id = $_REQUEST['course_id'];
     $section_id = $_REQUEST['section_id'];
     $session_id = $_REQUEST['session_id'];
-    $query = "SELECT users.name, student_id FROM `enrollment`, users WHERE course_id=$course_id AND section_id=$section_id AND teacher_id=$teacher_id AND session_id=$session_id AND users.id = enrollment.student_id";
+    $query = "SELECT users.name, student_id FROM enrollment, users, marks_assign WHERE course_id=$course_id AND section_id=$section_id AND teacher_id=$teacher_id AND session_id=$session_id AND status=1 AND users.id = enrollment.student_id";
     // echo $query;
     $sql = mysqli_query($conn, $query);
     $data = [];
