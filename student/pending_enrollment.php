@@ -73,6 +73,12 @@
                   My Requested Courses
                 </header>
                 <table class="table" id="myTable">
+                  <thead>
+                    <tr></tr>
+                  </thead>
+                  <tbody>
+                    <tr></tr>
+                  </tbody>
                   <!-- used in ajax -->
                 </table>
               </section>
@@ -93,38 +99,35 @@
         });
         $("#session").change(function(){
           var session = $("#session").val();
+          $('#myTable tbody').html(" ");
           //ajax used: 
           $.ajax({
             url: "getsession.php",
             dataType: 'json',
-            data : {
-                "session_id" : session
-            },
+            data : { "session_id" : session },
             success: function(data){
               //console.log(data);
               var a;
-              for(i=0;i<data.length;i++){
-                $('#myTable').html("<thead>\
-                <tr>\
-                  <th>#ID</th>\
-                  <th>Course Title</th>\
-                  <th>Credit</th>\
-                  <th>Section</th>\
-                  <th>type</th>\
-                  <th>Status</th>\
-                </tr>\
-              </thead>");
+              $('#myTable thead tr').html("\
+                <th>#ID</th>\
+                <th>Course Title</th>\
+                <th>Credit</th>\
+                <th>Section</th>\
+                <th>type</th>\
+                <th>Status</th>\
+              ");
+              for(i=0; i<data.length ;i++){
                 if(i%2==0){a="success";}
                 else {a="warning";}
-                x = "<tbody > <tr class='"+a+"'>"+
-                    "<td>  "+(i+1)+"  </td>\
-                     <td> "+data[i].course+" ("+data[i].course_type+") </td>"+
-                    "<td> "+data[i].credit+" </td>"+
-                    "<td>"+ data[i].section+" </td>"+
-                    "<td> "+data[i].type+" </td>"+
-                    "<td> "+data[i].status+" </td>"+
-                  "</tr> </tbody>";
-                $('#myTable').append(x);
+                x = "<tr class='"+a+"'>"+
+                "<td>  "+(i+1)+"  </td>\
+                <td> "+data[i].course+" ("+data[i].course_type+") </td>"+
+                "<td> "+data[i].credit+" </td>"+
+                "<td>"+ data[i].section+" </td>"+
+                "<td> "+data[i].type+" </td>"+
+                "<td> "+data[i].status+" </td>"+
+                "</tr> </tbody>";
+                $('#myTable tbody').append(x);
               }
             }
           });

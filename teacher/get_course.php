@@ -11,9 +11,10 @@
         //tough one to explore :)
         //OOP blessings :)
         class assign{
-            public function __construct( $course_id, $course_name, $section_name){
+            public function __construct( $course_id, $course_name, $section_id, $section_name){
                $this->course_id = $course_id;
                $this->course_name = $course_name;
+               $this->section_id = $section_id;
                $this->section_name = $section_name;
             }
         }
@@ -29,7 +30,7 @@
         $row2 = mysqli_fetch_assoc($sql2);
         $section_name = $row2['name'];
         
-        $row_assign = new assign($course_id, $course_name, $section_name);
+        $row_assign = new assign($course_id, $course_name, $section_id, $section_name);
         $data[] = $row_assign;
     }
     echo json_encode($data);

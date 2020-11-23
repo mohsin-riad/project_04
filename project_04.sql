@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2020 at 12:57 PM
+-- Generation Time: Nov 23, 2020 at 07:18 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -92,7 +92,11 @@ CREATE TABLE `enrollment` (
 --
 
 INSERT INTO `enrollment` (`id`, `student_id`, `course_id`, `type_id`, `section_id`, `teacher_id`, `session_id`, `status`) VALUES
-(1, 19, 13, 1, 7, 12, 1, 0);
+(1, 19, 13, 1, 7, 12, 1, 1),
+(2, 20, 23, 1, 13, 18, 3, 1),
+(3, 20, 24, 1, 14, 16, 3, 1),
+(4, 20, 25, 1, 13, 17, 3, 1),
+(5, 20, 27, 1, 13, 15, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,20 @@ INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `section_id`, `session_
 (8, 11, 3, 4, 8, 'assignment', 10),
 (9, 11, 3, 4, 8, 'ct', 10),
 (10, 11, 3, 4, 8, 'mid', 20),
-(11, 11, 3, 4, 8, 'final', 50);
+(11, 11, 3, 4, 8, 'final', 50),
+(12, 18, 12, 10, 2, 'attendance', 10),
+(13, 18, 12, 10, 2, 'ct', 10),
+(14, 18, 12, 10, 2, 'assignment', 10),
+(15, 18, 12, 10, 2, 'mid', 20),
+(16, 18, 12, 10, 2, 'final', 50),
+(17, 21, 3, 10, 2, 'assignment', 20),
+(18, 21, 3, 10, 2, 'mid', 30),
+(19, 21, 3, 10, 2, 'final', 50),
+(20, 24, 16, 14, 3, 'attendance', 10),
+(21, 24, 16, 14, 3, 'ct', 10),
+(22, 24, 16, 14, 3, 'assignment', 10),
+(23, 24, 16, 14, 3, 'mid', 20),
+(24, 24, 16, 14, 3, 'final', 50);
 
 -- --------------------------------------------------------
 
@@ -178,7 +195,7 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `name`, `status`) VALUES
 (1, 'Spring 2019', 0),
-(2, 'fall 2019', 1),
+(2, 'fall 2019', 0),
 (3, 'Spring 2020', 1),
 (4, 'fall 2020', 0),
 (5, 'Spring 2021', 0),
@@ -208,10 +225,14 @@ CREATE TABLE `teacher_assign` (
 INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES
 (1, 3, 1, 5, 7, 1),
 (2, 3, 4, 11, 8, 1),
-(3, 3, 10, 21, 2, 0),
+(3, 3, 10, 21, 2, 1),
 (4, 12, 4, 7, 3, 0),
-(5, 12, 10, 18, 2, 0),
-(7, 12, 7, 13, 1, 0);
+(5, 12, 10, 18, 2, 1),
+(7, 12, 7, 13, 1, 0),
+(8, 15, 13, 27, 3, 0),
+(9, 16, 14, 24, 3, 1),
+(10, 17, 13, 25, 3, 0),
+(11, 18, 13, 23, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -355,13 +376,13 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -379,7 +400,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `type`
