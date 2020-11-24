@@ -95,14 +95,11 @@
                   <table class="table" id="student_dist">
                     <thead>
                       <tr>
-                        <!-- <th>#S/N</th>
-                        <th>ID</th>
-                        <th>Name</th>-->
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                      </tr>
+                        <tr>  
+                        </tr>
                     </tbody>
                   </table>
                 </section>
@@ -204,9 +201,40 @@
               console.log(data);
               $("#student_dist tbody tr").html(' ');
               for(i=0; i<data.length;i++){
-                var x = '<tr><td>'+(i+1)+'</td>'+'<td>'+data[i].student_id+'</td>'+'<td>'+data[i].name+'</td></tr>';
-                $("#student_dist tbody ").append(x);
+                var x = '<tr><td>'+(i+1)+'</td>'+'<td>'+data[i].student_id+'</td>'+'<td>'+data[i].name+'</td>';
+                var begin = parseInt(data[i].begin);
+                var end = parseInt(data[i].end);
+                var k = parseInt("0");
+                for(j=begin; j<=end;j++){
+                  x = x+'<td><input class="form-control input-sm m-bot15 marks" type="number" name="marks[]" value="'+data[i][k]+'" id="marks"></td>';
+                  k++
+                }
+                $("#student_dist tbody ").append(x+'<td><output id="total_mark"></output></td><tr>');
               }
+              $('#student_dist').on('input', '.marks', function(){
+                var sum = 0;
+                $('#student_dist .marks').each(function(){
+                  var input_val = $(this).val();
+                  if($.isNumeric(input_val)){
+                    sum += parseFloat(input_val);
+                  }
+                });
+                $('#total_mark').text(sum+'/100');
+                if(sum > 100){ 
+                  alert('MARKS LIMIT EXCEEDED!');
+                  //$('#submit').prop('disabled', true);
+                  //$('#add').prop('disabled', true);
+                }
+                else if(sum == 100){ 
+                  //alert('Submit Now: total marks fixed'); 
+                  //$('#submit').prop('disabled', false);
+                  //$('#add').prop('disabled', true);
+                }
+                else { 
+                  //$('#submit').prop('disabled', true); 
+                  //$('#add').prop('disabled', false);
+                }
+              });
             }
           });
         });
@@ -215,7 +243,3 @@
     <?php include '../include/script.php' ?>
   </body>
 </html>
-
-<?php 
-    
-?>
