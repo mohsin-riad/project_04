@@ -140,7 +140,7 @@
           var session_id = $("#session").val();
           //using ajax
           $.ajax({
-            url: "get_course.php",
+            url: "get_course_section.php",
             dataType: 'json',
             data: {
               "session_id" : session_id
