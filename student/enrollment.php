@@ -126,7 +126,7 @@
                               <select class="form-control input-sm m-bot15" name="type[]" id="type">
                                 <option value=" ">-select course type-</option>
                                 <?php 
-                                  $query1 = "SELECT * FROM `type` WHERE 1";
+                                  $query1 = "SELECT * FROM `type` WHERE status = 1";
                                   $sql1 = mysqli_query($conn, $query1);
                                   while($row1 = mysqli_fetch_array($sql1)){ ?>
                                     <option value="<?php echo $row1['id']; ?>"><?php echo $row1['name']; ?></option> 

@@ -19,7 +19,7 @@
                 </ul>
             </li>
             <li class="active">
-                <a class="" href="#">
+                <a class="" href="running_course.php">
                     <i class="icon_desktop"></i>
                     <span>Running Courses</span>
                 </a>
