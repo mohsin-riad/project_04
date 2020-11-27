@@ -98,8 +98,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <tr>  
-                        </tr>
+                      <tr>  
+                      </tr>
                     </tbody>
                   </table>
                 </section>
@@ -206,9 +206,10 @@
                 var end = parseInt(data[i].end);
                 var k = parseInt("0");
                 for(j=begin; j<=end;j++){
-                  x = x+'<td><input class="form-control input-sm m-bot15 marks" type="number" name="marks[]" value="'+data[i][k]+'" id="marks"></td>';
-                  k++
+                  x = x+'<td><input class="form-control input-sm m-bot15 marks" type="number" name="marks'+(k+1)+'[]" value="'+data[i][k]+'" id="marks"></td>';
+                  k++;
                 }
+                
                 $("#student_dist tbody ").append(x+'<td><output id="total_mark"></output></td><tr>');
               }
               $('#student_dist').on('input', '.marks', function(){
@@ -243,3 +244,49 @@
     <?php include '../include/script.php' ?>
   </body>
 </html>
+<?php  ?>
+<?php 
+  if(isset($_POST['submit'])){
+    if(!empty($_POST['check_list'])){
+      $session_id = $_POST['session'];
+      $id = $_SESSION['id'];
+
+      $course_id=[];
+      $section_id=[];
+      $type_id=[];
+      
+      $i=0;
+      foreach($_POST['check_list'] as $selected) {$course_id[$i] = $selected;$i++;}
+      $i=0;
+      foreach($_POST['section'] as $selected) {if($selected!=" "){$section_id[$i] = $selected;$i++;}}
+      $i=0;
+      foreach($_POST['type'] as $selected) {if($selected!=" "){$type_id[$i] = $selected;$i++;}}
+      $n = count($course_id);
+      //* one must choose a course in which a teacher is assigned 'Ex: check teacher assign'
+      for($i=0;$i<$n;$i++){
+        $qry = "SELECT * FROM teacher_assign WHERE section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id AND status = 1"; // For later use 'AND status=0'
+        $r = mysqli_query($conn, $qry);
+        $row = mysqli_fetch_assoc($r);
+        $teacher_id = $row['teacher_id'];
+        //echo ' sec: '.$section_id[$i].' course: '.$course_id[$i].' type: '.$type_id[$i].' teacher: '.$teacher_id.'<br>'; //sidebar toggle korle printed value dekhabe :)
+        $qry = "INSERT INTO enrollment(student_id,course_id,type_id,section_id,teacher_id,session_id,status) VALUES ($id, $course_id[$i], $type_id[$i], $section_id[$i], $teacher_id,$session_id,0)";
+        if (mysqli_query($conn, $qry)){
+          //echo "assigned\n";
+          //enrollment table e inserted hobe.
+          $qry1 = "SELECT * FROM num_dist WHERE teacher_id=$teacher_id AND section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id"; 
+          $sql1 = mysqli_query($conn, $qry1);
+
+          while($row1 = mysqli_fetch_array($sql1)){
+            $dist_id = $row1['id'];
+            $qry2 = "INSERT INTO `marks_assign`(`student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES ($id, $teacher_id, $course_id[$i], $section_id[$i], $session_id, $dist_id, 0)";
+            //echo $qry2;
+            if (mysqli_query($conn, $qry2)){
+              //echo "insert seccess\n";
+            }
+          }
+          //marks_assign table e inserted hobe.
+        }
+      }
+    }
+  }
+?>
