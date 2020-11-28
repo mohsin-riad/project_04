@@ -102,7 +102,7 @@
           $('#myTable tbody').html(" ");
           //ajax used: 
           $.ajax({
-            url: "getsession.php",
+            url: "get_ac_course.php",
             dataType: 'json',
             data : { "session_id" : session },
             success: function(data){
