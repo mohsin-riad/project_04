@@ -218,22 +218,24 @@
                 var begin = parseInt(data[i].begin);
                 var end = parseInt(data[i].end);
                 var k = parseInt("0");
+                var total_mark_sum = parseInt("0");;
                 for(j=begin; j<=end;j++){
                   x = x+'<td><input class="form-control input-sm m-bot15 marks" type="number" name="marks'+(k+1)+'[]" value="'+data[i][k]+'" id="marks"></td>';
+                  total_mark_sum += parseInt(data[i][k]);
                   k++;
                 }
                 
-                $("#student_dist tbody ").append(x+'<td><output id="total_mark"></output></td><tr>');
+                $("#student_dist tbody ").append(x+'<td><output id="total_mark">'+total_mark_sum+'</output></td><tr>');
               }
-              $('#student_dist tr').on('input', 'td', function(){
-                var sum = 0;
-                $('#student_dist tbody tr .marks').each(function(){
-                  var input_val = $(this).val();
-                  if($.isNumeric(input_val)){
-                    sum += parseFloat(input_val);
-                  }
-                });
-                $('td #total_mark').text(sum+'/100');
+              // $('#student_dist tr').on('input', 'td', function(){
+              //   var sum = 0;
+              //   $('#student_dist tbody tr .marks').each(function(){
+              //     var input_val = $(this).val();
+              //     if($.isNumeric(input_val)){
+              //       sum += parseFloat(input_val);
+              //     }
+              //   });
+              //   $('td #total_mark').text(sum+'/100');
                 // if(sum > 100){ 
                 //   alert('MARKS LIMIT EXCEEDED!');
                 //   //$('#submit').prop('disabled', true);
@@ -248,7 +250,7 @@
                 //   //$('#submit').prop('disabled', true); 
                 //   //$('#add').prop('disabled', false);
                 // }
-              });
+              // });
             }
           });
         });

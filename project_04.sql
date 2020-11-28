@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2020 at 12:55 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Nov 28, 2020 at 06:48 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,7 +95,8 @@ INSERT INTO `enrollment` (`id`, `student_id`, `course_id`, `type_id`, `section_i
 (12, 19, 24, 1, 13, 16, 3, 1),
 (13, 20, 24, 1, 14, 16, 3, 1),
 (14, 22, 24, 1, 15, 16, 3, 1),
-(15, 23, 24, 1, 13, 16, 3, 1);
+(15, 23, 24, 1, 13, 16, 3, 1),
+(16, 24, 24, 1, 13, 16, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -119,20 +120,25 @@ CREATE TABLE `marks_assign` (
 --
 
 INSERT INTO `marks_assign` (`id`, `student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES
-(6, 19, 16, 24, 13, 3, 43, 6),
-(7, 19, 16, 24, 13, 3, 44, 6),
-(8, 19, 16, 24, 13, 3, 45, 6),
+(6, 19, 16, 24, 13, 3, 43, 9),
+(7, 19, 16, 24, 13, 3, 44, 8),
+(8, 19, 16, 24, 13, 3, 45, 8),
 (9, 19, 16, 24, 13, 3, 46, 16),
-(10, 19, 16, 24, 13, 3, 47, 36),
-(11, 20, 16, 24, 14, 3, 39, 0),
-(12, 20, 16, 24, 14, 3, 40, 0),
+(10, 19, 16, 24, 13, 3, 47, 45),
+(11, 20, 16, 24, 14, 3, 39, 40),
+(12, 20, 16, 24, 14, 3, 40, 45),
 (13, 22, 16, 24, 15, 3, 41, 0),
 (14, 22, 16, 24, 15, 3, 42, 0),
 (15, 23, 16, 24, 13, 3, 43, 0),
 (16, 23, 16, 24, 13, 3, 44, 0),
 (17, 23, 16, 24, 13, 3, 45, 0),
 (18, 23, 16, 24, 13, 3, 46, 0),
-(19, 23, 16, 24, 13, 3, 47, 0);
+(19, 23, 16, 24, 13, 3, 47, 0),
+(20, 24, 16, 24, 13, 3, 43, 0),
+(21, 24, 16, 24, 13, 3, 44, 0),
+(22, 24, 16, 24, 13, 3, 45, 0),
+(23, 24, 16, 24, 13, 3, 46, 0),
+(24, 24, 16, 24, 13, 3, 47, 0);
 
 -- --------------------------------------------------------
 
@@ -182,7 +188,107 @@ INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `section_id`, `session_
 (44, 24, 16, 13, 3, 'assignment', 10),
 (45, 24, 16, 13, 3, 'ct', 10),
 (46, 24, 16, 13, 3, 'mid', 20),
-(47, 24, 16, 13, 3, 'final', 50);
+(47, 24, 16, 13, 3, 'final', 50),
+(48, 3, 2, 1, 7, 'attendance', 10),
+(49, 3, 2, 1, 7, 'assignment ', 10),
+(50, 3, 2, 1, 7, 'ct', 10),
+(51, 3, 2, 1, 7, 'mid', 20),
+(52, 3, 2, 1, 7, 'final', 50),
+(62, 9, 9, 4, 8, 'attendance', 10),
+(63, 9, 9, 4, 8, 'assignment', 10),
+(64, 9, 9, 4, 8, 'ct-1', 5),
+(65, 9, 9, 4, 8, 'ct-2', 5),
+(66, 9, 9, 4, 8, 'mid', 20),
+(67, 9, 9, 4, 8, 'final', 50),
+(68, 20, 14, 10, 2, 'attendance', 10),
+(69, 20, 14, 10, 2, 'assignment', 20),
+(70, 20, 14, 10, 2, 'mid', 20),
+(71, 20, 14, 10, 2, 'final', 50),
+(72, 4, 6, 1, 7, 'attendance', 10),
+(73, 4, 6, 1, 7, 'ct-1', 2),
+(74, 4, 6, 1, 7, 'ct-2', 2),
+(75, 4, 6, 1, 7, 'ct-3', 2),
+(76, 4, 6, 1, 7, 'ct-4', 2),
+(77, 4, 6, 1, 7, 'ct-5', 2),
+(78, 4, 6, 1, 7, 'performance', 10),
+(79, 4, 6, 1, 7, 'mid', 20),
+(80, 4, 6, 1, 7, 'final', 50),
+(81, 10, 6, 4, 8, 'attendance', 10),
+(82, 10, 6, 4, 8, 'ct-1', 5),
+(83, 10, 6, 4, 8, 'ct-2', 5),
+(84, 10, 6, 4, 8, 'performance', 10),
+(85, 10, 6, 4, 8, 'mid', 20),
+(86, 10, 6, 4, 8, 'final', 50),
+(87, 2, 5, 1, 7, 'attendance', 10),
+(88, 2, 5, 1, 7, 'performance', 10),
+(89, 2, 5, 1, 7, 'report', 10),
+(90, 2, 5, 1, 7, 'test', 10),
+(91, 2, 5, 1, 7, 'final', 60),
+(92, 8, 8, 4, 8, 'attendance', 10),
+(93, 8, 8, 4, 8, 'ct', 10),
+(94, 8, 8, 4, 8, 'assignment', 10),
+(95, 8, 8, 4, 8, 'mid', 20),
+(96, 8, 8, 4, 8, 'final', 50),
+(97, 6, 7, 1, 7, 'attendance', 10),
+(98, 6, 7, 1, 7, 'assignment-1', 5),
+(99, 6, 7, 1, 7, 'assignment-2', 5),
+(100, 6, 7, 1, 7, 'ct', 10),
+(101, 6, 7, 1, 7, 'mid', 20),
+(102, 6, 7, 1, 7, 'final', 50),
+(103, 13, 12, 7, 1, 'attendance', 10),
+(104, 13, 12, 7, 1, 'ct-1', 5),
+(105, 13, 12, 7, 1, 'ct-2', 5),
+(106, 13, 12, 7, 1, 'assignment', 10),
+(107, 13, 12, 7, 1, 'mid', 20),
+(108, 13, 12, 7, 1, 'final', 50),
+(109, 7, 12, 4, 3, 'attendance', 10),
+(110, 7, 12, 4, 3, 'assignment-1', 5),
+(111, 7, 12, 4, 3, 'assignment-2', 5),
+(112, 7, 12, 4, 3, 'ct-1', 5),
+(113, 7, 12, 4, 3, 'ct-2', 5),
+(114, 7, 12, 4, 3, 'mid', 20),
+(115, 7, 12, 4, 3, 'final', 50),
+(116, 1, 4, 1, 7, 'attendance', 10),
+(117, 1, 4, 1, 7, 'ct', 10),
+(118, 1, 4, 1, 7, 'assignment', 10),
+(119, 1, 4, 1, 7, 'mid', 20),
+(120, 1, 4, 1, 7, 'final', 50),
+(121, 17, 15, 7, 1, 'attendance', 10),
+(122, 17, 15, 7, 1, 'ct-1', 5),
+(123, 17, 15, 7, 1, 'ct-2', 5),
+(124, 17, 15, 7, 1, 'assignment', 10),
+(125, 17, 15, 7, 1, 'mid', 20),
+(126, 17, 15, 7, 1, 'final', 50),
+(127, 27, 15, 13, 3, 'attendance', 10),
+(128, 27, 15, 13, 3, 'ct-1', 5),
+(129, 27, 15, 13, 3, 'ct-2', 5),
+(130, 27, 15, 13, 3, 'assignment-1', 5),
+(131, 27, 15, 13, 3, 'assignment-2', 5),
+(132, 27, 15, 13, 3, 'mid-2', 20),
+(133, 27, 15, 13, 3, 'final', 50),
+(134, 19, 13, 10, 2, 'attendance', 10),
+(135, 19, 13, 10, 2, 'assignment', 10),
+(136, 19, 13, 10, 2, 'ct', 5),
+(137, 19, 13, 10, 2, 'oral test', 5),
+(138, 19, 13, 10, 2, 'mid', 20),
+(139, 19, 13, 10, 2, 'final', 50),
+(140, 14, 11, 7, 1, 'attendance', 10),
+(141, 14, 11, 7, 1, 'assignment', 10),
+(142, 14, 11, 7, 1, 'ct', 10),
+(143, 14, 11, 7, 1, 'mid', 20),
+(144, 14, 11, 7, 1, 'final', 50),
+(145, 23, 18, 13, 3, 'attendance', 10),
+(146, 23, 18, 13, 3, 'ct-1', 5),
+(147, 23, 18, 13, 3, 'ct-2', 5),
+(148, 23, 18, 13, 3, 'assignment', 10),
+(149, 23, 18, 13, 3, 'mid', 20),
+(150, 23, 18, 13, 3, 'final', 50),
+(151, 25, 17, 13, 3, 'attendance', 10),
+(152, 25, 17, 13, 3, 'ct', 10),
+(153, 25, 17, 13, 3, 'assignment-1', 5),
+(154, 25, 17, 13, 3, 'assignment-2', 5),
+(155, 25, 17, 13, 3, 'mid', 20),
+(156, 25, 17, 13, 3, 'final', 50);
 
 -- --------------------------------------------------------
 
@@ -266,15 +372,27 @@ INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `se
 (1, 3, 1, 5, 7, 1),
 (2, 3, 4, 11, 8, 1),
 (3, 3, 10, 21, 2, 1),
-(4, 12, 4, 7, 3, 0),
+(4, 12, 4, 7, 3, 1),
 (5, 12, 10, 18, 2, 1),
-(7, 12, 7, 13, 1, 0),
-(8, 15, 13, 27, 3, 0),
+(7, 12, 7, 13, 1, 1),
+(8, 15, 13, 27, 3, 1),
 (9, 16, 14, 24, 3, 1),
-(10, 17, 13, 25, 3, 0),
-(11, 18, 13, 23, 3, 0),
+(10, 17, 13, 25, 3, 1),
+(11, 18, 13, 23, 3, 1),
 (12, 16, 13, 24, 3, 1),
-(13, 16, 15, 24, 3, 1);
+(13, 16, 15, 24, 3, 1),
+(14, 2, 1, 3, 7, 1),
+(16, 4, 1, 1, 7, 1),
+(17, 5, 1, 2, 7, 1),
+(18, 6, 1, 4, 7, 1),
+(19, 7, 1, 6, 7, 1),
+(20, 8, 4, 8, 8, 1),
+(21, 9, 4, 9, 8, 1),
+(24, 6, 4, 10, 8, 1),
+(28, 11, 7, 14, 1, 1),
+(29, 15, 7, 17, 1, 1),
+(35, 13, 10, 19, 2, 1),
+(36, 14, 10, 20, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -294,7 +412,7 @@ CREATE TABLE `type` (
 
 INSERT INTO `type` (`id`, `name`, `status`) VALUES
 (1, 'Regular', 1),
-(2, 'Retake', 1),
+(2, 'Retake', 0),
 (3, 'Recourse', 1);
 
 -- --------------------------------------------------------
@@ -322,14 +440,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (4, 'Sumon Sen ', 'sumon@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (5, 'Toufiq sayed', 'toufiq@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (6, 'Iftekhar Khan', 'iftekhar@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(7, 'Nusrat Shirin', 'shirin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(7, 'Nusrat Shirin', 'nusrat@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (8, 'Faisal ahmed', 'faisal@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (9, 'KMH hamim', 'hamim@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (10, 'Rukon Uddin', 'rukon@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (11, 'Farhana shirin', 'shirin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (12, 'Minhaz hossen', 'minhaz@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (13, 'Mehedi hassan', 'mehedi@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(14, 'minhaz Rahat', 'hamim@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
+(14, 'minhaz Rahat', 'rahat@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (15, 'Tania noor', 'tania@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (16, 'Anik sen', 'anik@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (17, 'tanni Dhoom', 'tanni@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
@@ -338,7 +456,10 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (20, 'student2', 'std2@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
 (21, 'student3', 'std3@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
 (22, 'student4', 'std4@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
-(23, 'student5', 'std5@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student');
+(23, 'student5', 'std5@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(24, 'Srabosthy Das Prama', 'srabosthy@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(25, 'Mohsin Riad', 'morteen@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(26, 'Tonmoy Barua', 'tonmoy@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student');
 
 --
 -- Indexes for dumped tables
@@ -432,19 +553,19 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `marks_assign`
 --
 ALTER TABLE `marks_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -462,7 +583,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -474,7 +595,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Constraints for dumped tables
