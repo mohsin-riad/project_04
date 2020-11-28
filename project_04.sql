@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 10:37 PM
+-- Generation Time: Nov 28, 2020 at 12:55 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -92,7 +92,10 @@ CREATE TABLE `enrollment` (
 --
 
 INSERT INTO `enrollment` (`id`, `student_id`, `course_id`, `type_id`, `section_id`, `teacher_id`, `session_id`, `status`) VALUES
-(11, 20, 24, 1, 14, 16, 3, 1);
+(12, 19, 24, 1, 13, 16, 3, 1),
+(13, 20, 24, 1, 14, 16, 3, 1),
+(14, 22, 24, 1, 15, 16, 3, 1),
+(15, 23, 24, 1, 13, 16, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -116,11 +119,20 @@ CREATE TABLE `marks_assign` (
 --
 
 INSERT INTO `marks_assign` (`id`, `student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES
-(1, 20, 16, 24, 14, 3, 20, 0),
-(2, 20, 16, 24, 14, 3, 21, 0),
-(3, 20, 16, 24, 14, 3, 22, 0),
-(4, 20, 16, 24, 14, 3, 23, 0),
-(5, 20, 16, 24, 14, 3, 24, 0);
+(6, 19, 16, 24, 13, 3, 43, 6),
+(7, 19, 16, 24, 13, 3, 44, 6),
+(8, 19, 16, 24, 13, 3, 45, 6),
+(9, 19, 16, 24, 13, 3, 46, 16),
+(10, 19, 16, 24, 13, 3, 47, 36),
+(11, 20, 16, 24, 14, 3, 39, 0),
+(12, 20, 16, 24, 14, 3, 40, 0),
+(13, 22, 16, 24, 15, 3, 41, 0),
+(14, 22, 16, 24, 15, 3, 42, 0),
+(15, 23, 16, 24, 13, 3, 43, 0),
+(16, 23, 16, 24, 13, 3, 44, 0),
+(17, 23, 16, 24, 13, 3, 45, 0),
+(18, 23, 16, 24, 13, 3, 46, 0),
+(19, 23, 16, 24, 13, 3, 47, 0);
 
 -- --------------------------------------------------------
 
@@ -162,11 +174,15 @@ INSERT INTO `num_dist` (`id`, `course_id`, `teacher_id`, `section_id`, `session_
 (17, 21, 3, 10, 2, 'assignment', 20),
 (18, 21, 3, 10, 2, 'mid', 30),
 (19, 21, 3, 10, 2, 'final', 50),
-(20, 24, 16, 14, 3, 'attendance', 10),
-(21, 24, 16, 14, 3, 'ct', 10),
-(22, 24, 16, 14, 3, 'assignment', 10),
-(23, 24, 16, 14, 3, 'mid', 20),
-(24, 24, 16, 14, 3, 'final', 50);
+(39, 24, 16, 14, 3, 'mid', 50),
+(40, 24, 16, 14, 3, 'final', 50),
+(41, 24, 16, 15, 3, 'mid', 50),
+(42, 24, 16, 15, 3, 'final', 50),
+(43, 24, 16, 13, 3, 'attendance', 10),
+(44, 24, 16, 13, 3, 'assignment', 10),
+(45, 24, 16, 13, 3, 'ct', 10),
+(46, 24, 16, 13, 3, 'mid', 20),
+(47, 24, 16, 13, 3, 'final', 50);
 
 -- --------------------------------------------------------
 
@@ -256,7 +272,9 @@ INSERT INTO `teacher_assign` (`id`, `teacher_id`, `section_id`, `course_id`, `se
 (8, 15, 13, 27, 3, 0),
 (9, 16, 14, 24, 3, 1),
 (10, 17, 13, 25, 3, 0),
-(11, 18, 13, 23, 3, 0);
+(11, 18, 13, 23, 3, 0),
+(12, 16, 13, 24, 3, 1),
+(13, 16, 15, 24, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -275,9 +293,9 @@ CREATE TABLE `type` (
 --
 
 INSERT INTO `type` (`id`, `name`, `status`) VALUES
-(1, 'Regular', 0),
-(2, 'Retake', 0),
-(3, 'Recourse', 0);
+(1, 'Regular', 1),
+(2, 'Retake', 1),
+(3, 'Recourse', 1);
 
 -- --------------------------------------------------------
 
@@ -301,7 +319,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (1, 'admin', 'admin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'admin'),
 (2, 'Mohammad Arif ', 'arif@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (3, 'Akramul Kabir Khan', 'akram@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
-(4, 'Sumon Sen ', 'sumon@gmail.com', '96e79218965eb72c92a549dd5a330112', 'teacher'),
+(4, 'Sumon Sen ', 'sumon@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (5, 'Toufiq sayed', 'toufiq@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (6, 'Iftekhar Khan', 'iftekhar@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (7, 'Nusrat Shirin', 'shirin@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
@@ -318,7 +336,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`) VALUES
 (18, 'kingshuk dhar', 'king@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'teacher'),
 (19, 'student1', 'std1@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
 (20, 'student2', 'std2@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
-(21, 'student3', 'std3@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student');
+(21, 'student3', 'std3@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(22, 'student4', 'std4@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student'),
+(23, 'student5', 'std5@gmail.com', 'b0baee9d279d34fa1dfd71aadb908c3f', 'student');
 
 --
 -- Indexes for dumped tables
@@ -412,19 +432,19 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `enrollment`
 --
 ALTER TABLE `enrollment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `marks_assign`
 --
 ALTER TABLE `marks_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `num_dist`
 --
 ALTER TABLE `num_dist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `sections`
@@ -442,7 +462,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `teacher_assign`
 --
 ALTER TABLE `teacher_assign`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `type`
@@ -454,7 +474,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables
