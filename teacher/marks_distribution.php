@@ -52,26 +52,26 @@
                             <option value="">-select session-</option>
                             <?php
                               $teacher_id = $_SESSION['id'] ; 
-                              $query = "SELECT DISTINCT `session_id`, `status` FROM `teacher_assign` WHERE teacher_id = $teacher_id";
+                              $query = "SELECT DISTINCT `session_id` FROM `teacher_assign` WHERE teacher_id = $teacher_id AND `status` = 0";
                               $sql = mysqli_query($conn, $query);
-                              while($row = mysqli_fetch_array($sql)){ 
-                                if($row['status'] == 0){
+                              while($row = mysqli_fetch_array($sql)){
                                   $session_id = $row['session_id'];
                                   $query1 = "SELECT * FROM `sessions` WHERE id = $session_id";
                                   $sql1 = mysqli_query($conn, $query1);
                                   $row1 = mysqli_fetch_assoc($sql1);
                                   ?>
                                   <option value="<?php echo $session_id; ?>"><?php echo $row1['name']; ?></option>
-                                  <?php 
-                                }
+                                  <?php
                               }
                             ?>
                           </select>
                         </div>
                         <div class="form-group" id="crs">
-                            <label for="">Select course (specific section)</label>
-                            <select class="form-control" name="course" id="course">
-                            </select>
+                          <label for="">Select course (specific section)</label>
+                          <select class="form-control" name="course" id="course">
+                          </select>
+                        </div>
+                        <div class="form-group" id="sec">
                         </div>
                         <div class="form-group">
                             <button name="add" id="add" class="btn btn-success">Add</button>
@@ -98,38 +98,70 @@
       </section>
     </section>
     <script>
-        $(document).ready(function() {
-          //hiding course section
-          $('#crs').hide();
-          $('#session').change(function(){
-              var session = $('#session').val();
-              if(session != ""){
-                  $('#crs').show();
+      $(document).ready(function() {
+        //hiding course section
+        $('#crs').hide();
+        $('#sec').hide();
+        $('#session').change(function(){
+            var session = $('#session').val();
+            if(session != ""){
+                $('#crs').show();
+                $('#crs').change(function(){
+                  var course = $('#course').val();
+                  if(course != ""){
+                    $('#sec').show();
+                  }
+                  else{
+                    $('#sec').hide();
+                  }
+                });
+            }
+            else{
+                $('#crs').hide();
+                $('#sec').hide();
+            }
+        });
+        var session_id;
+        $("#session").change(function() {
+          session_id = $("#session").val();
+          $.ajax({
+            url: "get_course.php",
+            dataType: 'json',
+            data: {
+              "session_id" : session_id
+            },
+            success: function(data) {
+              console.log(data);
+              $("#course").html('<option value="">-select course-</option>');
+              for(i=0; i<data.length;i++){
+                var x = '<option value="'+data[i].course_id+'">'+data[i].course_name+'</option>';
+                $("#course").append(x);
               }
-              else{
-                  $('#crs').hide();
-              }
-          });
-          $("#session").change(function() {
-            var session_id = $("#session").val();
-            //using ajax
-            
-            $.ajax({
-              url: "get_course.php",
-              dataType: 'json',
-              data: {
-                "session_id" : session_id
-              },
-              success: function(data) {
-                $("#course").html('<option value="">-select course-</option>');
-                for(i=0; i<data.length;i++){
-                  var x = '<option value="'+data[i].course_id+'">'+data[i].course_name+'&emsp;&emsp;&emsp;'+data[i].section_name+'</option>';
-                  $("#course").append(x);
-                }
-              }
-            });
+            }
           });
         });
+        $("#course").change(function() {
+          var course_id = $("#course").val();
+          var session_id1 = session_id;
+          //alert(course_id+'|'+session_id1); 
+          $.ajax({
+            url: "get_section.php",
+            dataType: 'json',
+            data: {
+              "session_id" : session_id1,
+              "course_id" : course_id
+            },
+            success: function(data) {
+              console.log(data);
+              $("#sec").html('<label class="form-check-label" >Sections: </label>');
+              for(i=0; i<data.length;i++){
+                var x = '&emsp;<input type="checkbox" name="check_section[]" value="'+data[i].section_id+'">'+data[i].section_name+'&emsp;';
+                $("#sec").append(x);
+              }
+            }
+          });
+        });
+      });
     </script>
     <script>
       $(document).ready(function(){
@@ -195,24 +227,27 @@
 
 <?php 
     if(isset($_POST['submit'])){
+      if(!empty($_POST['check_section'])){
+        $session_id = $_POST['session'];
         $course_id = $_POST['course'];
-        
-        $query3 = "SELECT * FROM `teacher_assign` WHERE course_id = $course_id";
-        $sql3 = mysqli_query($conn, $query3);
-        $row3 = mysqli_fetch_assoc($sql3);
-        $session_id = $row3['session_id'];
-        $section_id = $row3['section_id'];
+        $section_id=[];
+        $i=0;
+        foreach($_POST['check_section'] as $selected) {$section_id[$i] = $selected; $i++;}
+        $n = count($section_id);
+        $c = count($_POST['catagory_name']);
+        for($i=0; $i<$n ;$i++){
+          
+          $query4 = "UPDATE `teacher_assign` SET `status`= 1 WHERE `teacher_id`= $teacher_id AND `session_id` AND `course_id`= $course_id AND `section_id` = $section_id[$i]";
+          mysqli_query($conn, $query4);
 
-        $query4 = "UPDATE `teacher_assign` SET `status`= 1 WHERE `teacher_id`= $teacher_id AND `course_id`= $course_id";
-        mysqli_query($conn, $query4);
-        $n = count($_POST['catagory_name']);
+          for($j=0; $j < $c ;$j++){
+              $cname = $_POST['catagory_name'][$j];
+              $cvalue = $_POST['catagory_value'][$j];
 
-        for($i=0; $i < $n ;$i++){
-            $cname = $_POST['catagory_name'][$i];
-            $cvalue = $_POST['catagory_value'][$i];
-
-            $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `section_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $section_id, $session_id, '$cname', $cvalue)";
-            mysqli_query($conn, $query);
+              $query = "INSERT INTO `num_dist`(`course_id`, `teacher_id`, `section_id`, `session_id`, `catagory_name`, `marks`) VALUES ($course_id, $teacher_id, $section_id[$i], $session_id, '$cname', $cvalue)";
+              mysqli_query($conn, $query);
+          }
         }
+      }
     }
 ?>

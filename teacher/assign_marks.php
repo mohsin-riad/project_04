@@ -36,7 +36,7 @@
               </ol>
             </div>
           </div>
-          <form action="#" method="post">
+          <form action="" method="post">
             <div class="row">
               <div class="col-md-1"></div>
               <div class="col-md-5 portlets">
@@ -140,7 +140,7 @@
           var session_id = $("#session").val();
           //using ajax
           $.ajax({
-            url: "get_course.php",
+            url: "get_course_section.php",
             dataType: 'json',
             data: {
               "session_id" : session_id
@@ -153,6 +153,16 @@
               }
             }
           });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+        var table = $('#student_dist').DataTable({
+          columnDefs: [{
+            orderable: false,
+            targets: [1,2,3]
+          }]
         });
       });
     </script>
@@ -201,7 +211,10 @@
               console.log(data);
               $("#student_dist tbody tr").html(' ');
               for(i=0; i<data.length;i++){
-                var x = '<tr><td>'+(i+1)+'</td>'+'<td>'+data[i].student_id+'</td>'+'<td>'+data[i].name+'</td>';
+                var x = '<tr><input type="hidden" name="serial_id" value="'+(i+1)+'"><td>'+(i+1)+'</td>'+'<td>\
+                          <input type="hidden" name="student_id[]" value="'+data[i].student_id+'">\
+                          <input type="hidden" name="begin[]" value="'+data[i].begin+'">\
+                          <input type="hidden" name="end[]" value="'+data[i].end+'">'+data[i].student_id+'</td>'+'<td>'+data[i].name+'</td>';
                 var begin = parseInt(data[i].begin);
                 var end = parseInt(data[i].end);
                 var k = parseInt("0");
@@ -212,29 +225,29 @@
                 
                 $("#student_dist tbody ").append(x+'<td><output id="total_mark"></output></td><tr>');
               }
-              $('#student_dist').on('input', '.marks', function(){
+              $('#student_dist tr').on('input', 'td', function(){
                 var sum = 0;
-                $('#student_dist .marks').each(function(){
+                $('#student_dist tbody tr .marks').each(function(){
                   var input_val = $(this).val();
                   if($.isNumeric(input_val)){
                     sum += parseFloat(input_val);
                   }
                 });
-                $('#total_mark').text(sum+'/100');
-                if(sum > 100){ 
-                  alert('MARKS LIMIT EXCEEDED!');
-                  //$('#submit').prop('disabled', true);
-                  //$('#add').prop('disabled', true);
-                }
-                else if(sum == 100){ 
-                  //alert('Submit Now: total marks fixed'); 
-                  //$('#submit').prop('disabled', false);
-                  //$('#add').prop('disabled', true);
-                }
-                else { 
-                  //$('#submit').prop('disabled', true); 
-                  //$('#add').prop('disabled', false);
-                }
+                $('td #total_mark').text(sum+'/100');
+                // if(sum > 100){ 
+                //   alert('MARKS LIMIT EXCEEDED!');
+                //   //$('#submit').prop('disabled', true);
+                //   //$('#add').prop('disabled', true);
+                // }
+                // else if(sum == 100){ 
+                //   //alert('Submit Now: total marks fixed'); 
+                //   //$('#submit').prop('disabled', false);
+                //   //$('#add').prop('disabled', true);
+                // }
+                // else { 
+                //   //$('#submit').prop('disabled', true); 
+                //   //$('#add').prop('disabled', false);
+                // }
               });
             }
           });
@@ -247,45 +260,40 @@
 <?php  ?>
 <?php 
   if(isset($_POST['submit'])){
-    if(!empty($_POST['check_list'])){
-      $session_id = $_POST['session'];
-      $id = $_SESSION['id'];
-
-      $course_id=[];
-      $section_id=[];
-      $type_id=[];
-      
-      $i=0;
-      foreach($_POST['check_list'] as $selected) {$course_id[$i] = $selected;$i++;}
-      $i=0;
-      foreach($_POST['section'] as $selected) {if($selected!=" "){$section_id[$i] = $selected;$i++;}}
-      $i=0;
-      foreach($_POST['type'] as $selected) {if($selected!=" "){$type_id[$i] = $selected;$i++;}}
-      $n = count($course_id);
-      //* one must choose a course in which a teacher is assigned 'Ex: check teacher assign'
-      for($i=0;$i<$n;$i++){
-        $qry = "SELECT * FROM teacher_assign WHERE section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id AND status = 1"; // For later use 'AND status=0'
-        $r = mysqli_query($conn, $qry);
-        $row = mysqli_fetch_assoc($r);
-        $teacher_id = $row['teacher_id'];
-        //echo ' sec: '.$section_id[$i].' course: '.$course_id[$i].' type: '.$type_id[$i].' teacher: '.$teacher_id.'<br>'; //sidebar toggle korle printed value dekhabe :)
-        $qry = "INSERT INTO enrollment(student_id,course_id,type_id,section_id,teacher_id,session_id,status) VALUES ($id, $course_id[$i], $type_id[$i], $section_id[$i], $teacher_id,$session_id,0)";
-        if (mysqli_query($conn, $qry)){
-          //echo "assigned\n";
-          //enrollment table e inserted hobe.
-          $qry1 = "SELECT * FROM num_dist WHERE teacher_id=$teacher_id AND section_id = $section_id[$i] AND course_id = $course_id[$i] AND session_id = $session_id"; 
-          $sql1 = mysqli_query($conn, $qry1);
-
-          while($row1 = mysqli_fetch_array($sql1)){
-            $dist_id = $row1['id'];
-            $qry2 = "INSERT INTO `marks_assign`(`student_id`, `teacher_id`, `course_id`, `section_id`, `session_id`, `dist_id`, `marks`) VALUES ($id, $teacher_id, $course_id[$i], $section_id[$i], $session_id, $dist_id, 0)";
-            //echo $qry2;
-            if (mysqli_query($conn, $qry2)){
-              //echo "insert seccess\n";
-            }
-          }
-          //marks_assign table e inserted hobe.
-        }
+    $session_id = $_POST['session'];
+    $course_section_id = $_POST['course'];
+    $course_section_id1  = explode('|',$course_section_id);
+    $c  = count($course_section_id1);
+    $section_id = $course_section_id1[$c - 1];
+    $course_id = $course_section_id1[$c - 2];
+    $n = $_POST['serial_id'];
+    $student_id = [];
+    $begin = [];
+    $end = [];
+    $i=0;
+    foreach($_POST['student_id'] as $selected) {if($selected!=" "){$student_id[$i] = $selected;$i++;}}
+    $i=0;
+    foreach($_POST['begin'] as $selected) {if($selected!=" "){$begin[$i] = $selected;$i++;}}
+    $i=0;
+    foreach($_POST['end'] as $selected) {if($selected!=" "){$end[$i] = $selected;$i++;}}
+    
+    for($i=0; $i < $n ;$i++){
+      $total_dist = abs($begin[$i]-$end[$i])+1;
+      // echo $student_id[$i].' - '.$begin[$i].' - '.$end[$i]."\n";
+      // echo $total_dist;
+      // echo '<br>';
+      $cnt = $begin[$i];
+      for($j=1; $j <= $total_dist ;$j++){
+        $marks = [];
+        $k = 0;
+        foreach($_POST['marks'.$j] as $selected) {if($selected!=" "){$marks[$k] = $selected;$k++;}}
+        // echo $marks[$i];
+        // echo '-';
+        $qry = "UPDATE `marks_assign` SET `marks`= $marks[$i] WHERE `student_id`=$student_id[$i] AND `teacher_id`=$id AND `course_id`=$course_id AND `section_id`=$section_id AND `session_id`=$session_id AND `dist_id`=$cnt";
+        mysqli_query($conn, $qry);
+        // echo $qry;
+        // echo '<br>';
+        $cnt++;
       }
     }
   }
