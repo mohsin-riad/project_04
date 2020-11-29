@@ -25,6 +25,12 @@
                 </a>
             </li>
             <li class="active">
+                <a class="" href="get_result.php">
+                    <i class="icon_desktop"></i>
+                    <span>Get result</span>
+                </a>
+            </li>
+            <li class="active">
                 <a class="" href="change-password.php">
                     <i class="icon_document_alt"></i>
                     <span>Change Password</span>
