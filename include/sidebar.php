@@ -50,6 +50,19 @@
                 <li><a class="" href="teacher-table.php">All teachers</a></li>
                 </ul>
             </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_documents_alt"></i>
+                    <span>Tables</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                <li><a class="" href="table_teacher.php">Teacher</a></li>
+                <li><a class="" href="table_student.php">Student</a></li>
+                <li><a class="" href="table_course.php">Course</a></li>
+                <li><a class="" href="table_section.php">Section</a></li>
+            </ul>
+            </li>
         </ul>
     </div>
 </aside>
