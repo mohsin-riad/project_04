@@ -112,8 +112,8 @@
               $('#myTable thead tr').html("\
                 <th>Course code</th>\
                 <th>Course title</th>\
-                <th>Grade</th>\
                 <th>Total</th>\
+                <th>Grade</th>\
                 <th>CGPA</th>\
               ");
               for(i=0; i<data.length ;i++){
@@ -122,8 +122,8 @@
                 x = "<tr class='"+a+"'>"+
                 "<td>  "+data[i][0]+"  </td>"+
                 "<td> "+data[i][1]+"  </td>"+
-                "<td> "+ data[i][4]+" </td>"+
                 "<td>"+data[i][2]+" </td>"+
+                "<td> "+ data[i][4]+" </td>"+
                 "<td> "+data[i][3]+" </td>"+
                 "</tr> </tbody>";
                 $('#myTable tbody').append(x);
