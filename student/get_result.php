@@ -118,7 +118,7 @@
               ");
               for(i=0; i<data.length ;i++){
                 if(i%2==0){a="success";}
-                else {a="warning";}
+                else {a="active";}
                 x = "<tr class='"+a+"'>"+
                 "<td>  "+data[i][0]+"  </td>"+
                 "<td> "+data[i][1]+"  </td>"+

@@ -9,6 +9,7 @@
       session_destroy();
       header('Location: ../unauthorised_user.php');
     }
+    include '../include/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -50,12 +51,11 @@
                             <select name="teacher" id="" class="form-control">
                               <option value="">- Choose Teacher -</option>
                                 <?php  
-                                    include '../include/connection.php';
-                                    $query = "SELECT * FROM `users` WHERE role = 'teacher'";
-                                    $sql = mysqli_query($conn, $query);
-                                    while($row = mysqli_fetch_array($sql))
+                                    $query1 = "SELECT * FROM `users` WHERE role = 'teacher'";
+                                    $sql1 = mysqli_query($conn, $query1);
+                                    while($row1 = mysqli_fetch_array($sql1))
                                     {?>
-                                        <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?> </option>
+                                        <option value="<?php echo $row1['id']; ?>"> <?php echo $row1['name']; ?> </option>
                                     <?php
                                     }
                                 ?>
@@ -69,11 +69,11 @@
                               <option value="">- Choose Course -</option>
                                 <?php  
                                     include '../include/connection.php';
-                                    $query = "SELECT * FROM `courses` WHERE 1";
-                                    $sql = mysqli_query($conn, $query);
-                                    while($row = mysqli_fetch_array($sql))
+                                    $query2 = "SELECT * FROM `courses`";
+                                    $sql2 = mysqli_query($conn, $query2);
+                                    while($row2 = mysqli_fetch_array($sql2))
                                     {?>
-                                        <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?> </option>
+                                        <option value="<?php echo $row2['id']; ?>"> <?php echo $row2['name']; ?> </option>
                                     <?php
                                     }
                                 ?>
@@ -87,11 +87,11 @@
                               <option value="">- Choose Section -</option>
                                 <?php  
                                     include '../include/connection.php';
-                                    $query = "SELECT * FROM `sections` WHERE 1";
-                                    $sql = mysqli_query($conn, $query);
-                                    while($row = mysqli_fetch_array($sql))
+                                    $query3 = "SELECT * FROM `sections`";
+                                    $sql3 = mysqli_query($conn, $query3);
+                                    while($row3 = mysqli_fetch_array($sql3))
                                     { ?>
-                                        <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?> </option>
+                                        <option value="<?php echo $row3['id']; ?>"> <?php echo $row3['name']; ?> </option>
                                     <?php
                                     }
                                 ?>
@@ -102,14 +102,14 @@
                         <label class="control-label col-lg-2">Session</label>
                           <div class="col-lg-10">
                             <select name="session" id="" class="form-control">
-                              <option value="">- Choose Course -</option>
+                              <option value="">- Choose session -</option>
                                 <?php  
                                     include '../include/connection.php';
-                                    $query = "SELECT * FROM `sessions` WHERE 1";
-                                    $sql = mysqli_query($conn, $query);
-                                    while($row = mysqli_fetch_array($sql))
+                                    $query4 = "SELECT * FROM `sessions` WHERE status = 1";
+                                    $sql4 = mysqli_query($conn, $query4);
+                                    while($row4 = mysqli_fetch_array($sql4))
                                     {?>
-                                        <option value="<?php echo $row['id']; ?>"> <?php echo $row['name']; ?> </option>
+                                        <option value="<?php echo $row4['id']; ?>"> <?php echo $row4['name']; ?> </option>
                                     <?php
                                     }
                                 ?>
@@ -131,19 +131,11 @@
         </section>
       </section>
     </section>
-    <script>
-      $(document).ready(function(){
-        $('form').submit(function(){
-          alert("Teacher Has been assigned successfully!!");
-        });
-      });
-    </script>
     <?php include '../include/script.php' ?>
   </body>
 </html>
 
 <?php 
-    include '../include/connection.php';
     if(isset($_POST['submit']))
     {
         //recvd data from input/control
@@ -151,6 +143,7 @@
         $course = $_POST['course'];
         $section = $_POST['section'];
         $session = $_POST['session'];
+        
         //db query
         //status 0 for new enroll and 1 for completed
         $query = "INSERT INTO `teacher_assign`(`teacher_id`, `section_id`, `course_id`, `session_id`, `status`) VALUES ('$teacher', '$section', '$course', '$session', 0)";
